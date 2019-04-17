@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#111"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#222">
+
+        <ImageButton
+            android:id="@+id/btn_cancel"
+            android:padding="4dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/closebtn00" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_alignParentBottom="true"
+            android:background="#202735" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:background="@drawable/fadeline2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="158dp">
+
+        <ImageView
+            android:layout_marginTop="19dp"
+            android:background="@drawable/fadeline2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="140dp" />
+        <ImageView
+            android:layout_marginTop="160dp"
+            android:background="@drawable/fadeline2"
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_alignParentBottom="true"
+            android:background="#202735" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:background="@drawable/fadeline2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <!--
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lecture Status"
+            android:background="#222266"
+            android:textColor="#fff"
+            android:textSize="30dp"/>
+        -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top">
+
+            <TextView
+                android:id="@+id/Pamphlet"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:clickable="true"
+                android:gravity="left"
+                android:onClick="mOnPopupClick"
+                android:text="Pamphlet"
+                android:textColor="#fff"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_marginTop="38dp"
+                android:background="@drawable/fadeline2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/Departure"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="5dp"
+                android:clickable="true"
+                android:gravity="left"
+                android:onClick="mOnPopupClick"
+                android:text="Departure"
+                android:textColor="#fff"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_marginTop="73dp"
+                android:background="@drawable/fadeline2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <ImageButton
+                android:id="@+id/btn_side_level_1"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/closebtn00" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_alignParentBottom="true"
+                android:background="#202735" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
