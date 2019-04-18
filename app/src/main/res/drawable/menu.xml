@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true"
-        android:drawable="@drawable/menubtn02">
+        android:drawable="@drawable/menubtn03">
         <shape>
             <padding android:bottom="4dp" android:left="8dp" android:right="8dp" android:top="4dp" />
             <corners android:bottomLeftRadius="2dp" android:bottomRightRadius="2dp" android:topLeftRadius="2dp" android:topRightRadius="2dp" />

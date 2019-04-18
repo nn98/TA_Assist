@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#111"
+    android:background="#fff"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -38,22 +38,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="158dp">
+        android:layout_height="161dp">
 
         <ImageView
-            android:layout_marginTop="19dp"
             android:background="@drawable/fadeline2"
             android:layout_width="match_parent"
             android:layout_height="1dp" />
         <ImageView
-            android:layout_marginTop="20dp"
+            android:background="@drawable/bg00"
             android:layout_width="match_parent"
-            android:layout_height="140dp" />
+            android:layout_height="160dp" />
         <ImageView
             android:layout_marginTop="160dp"
             android:background="@drawable/fadeline2"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp" />
+            android:layout_height="1dp" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -94,10 +93,9 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"
                 android:clickable="true"
-                android:gravity="left"
+                android:gravity="center"
                 android:onClick="mOnPopupClick"
                 android:text="Pamphlet"
-                android:textColor="#fff"
                 android:textSize="15dp" />
 
             <ImageView
@@ -113,10 +111,9 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginLeft="5dp"
                 android:clickable="true"
-                android:gravity="left"
+                android:gravity="center"
                 android:onClick="mOnPopupClick"
                 android:text="Departure"
-                android:textColor="#fff"
                 android:textSize="15dp" />
 
             <ImageView
