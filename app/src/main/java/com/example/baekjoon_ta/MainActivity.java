@@ -11,6 +11,7 @@ package com.example.baekjoon_ta;
     startActivity(intent);
 
                  */
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -52,6 +53,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
             "7608guswns", "shc3113", "jiwoo60", "shmoon12", "201814128",
             "dlaxodud1217", "201814135", "s9430939", "980lje"
     };
+    static final String[] C_ID_LIST = {
+            "yelin", "vamos", "ujin00", "-", "didekwls0104",
+            "ruddl0519", "-", "201914008", "sss4920", "tjdeoduf1228",
+            "yeachan0724", "ymreueo", "ksk78030", "minjiii00", "Chelry0",
+            "-", "-", "201914018", "nahyunho1030", "kll4400",
+            "ekdms3868", "gjwldud0719", "pyr981125", "gpwl0773", "0928bh",
+            "201914081", "wndud5750", "epselcks1", "nada2121", "bsm3737",
+            "leehy321", "o0o0o557", "apple2701", "isf1999", "eunseo5355",
+            "choijudy0405", "jhhgms"
+    };
+    boolean isC = false;
 
     // #6 _ 레이아웃1: 사이드바 레이아웃 구현. --기능 구현
     private String TAG = "MainActivity";
@@ -61,6 +73,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ViewGroup sideLayout;          //사이드바만 감싸는 영역
     private Boolean isMenuShow = false;    //사이드바 표시 상태
     private Boolean isExitFlag = false;    //뒤로 버튼 입력 상태
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -69,6 +82,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         return super.onKeyDown(keyCode, event);
     }   //키 입력 확인 - 뒤로 버튼
+
     @Override
     public void onBackPressed() {
         if (isMenuShow) {               //사이드바 실행중일때
@@ -89,6 +103,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
     }      //뒤로 버튼 입력된 경우 - 사이드바 종료 | 앱 종료
+
     private void addSideView() {
         SideBarView sidebar = new SideBarView(mContext);    //this 정의해놨던 콘텍스트로 사이드바뷰 정의
         sideLayout.addView(sidebar);                        //정의한 뷰 사이드레이아웃에 추가
@@ -103,6 +118,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Log.e(TAG, "btnCancel");
                 closeMenu();
             }
+
             @Override
             public void btnLevel1() {
                 Log.e(TAG, "btnLevel1");
@@ -110,6 +126,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }); //클릭된 종료버튼에 따라 해당 버튼 콘솔에 출력 +TODO
     }       //사이드바 생성 - 실행 전제조건
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {         //클릭된 뷰가
@@ -118,12 +135,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
         }
     }   //메인코드 온클릭 정의 - 버튼클릭시 addSideView
+
     private void init() {
         findViewById(R.id.Menu).setOnClickListener(this);
         mainLayout = findViewById(R.id.id_main);
         viewLayout = findViewById(R.id.fl_silde);
         sideLayout = findViewById(R.id.view_sildebar);
     }              //정의된 온클릭 적용 - 실행 전제조건
+
     public void closeMenu() {
         isMenuShow = false;     //사이드바 플래그 설정
         Animation slide = AnimationUtils.loadAnimation(mContext, R.anim.sidebar_hidden);    //애니메이션 적용
@@ -137,6 +156,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }, 450);    //.45초동안 사이드바 페이드아웃
     }          //사이드바 종료
+
     public void showMenu() {
         isMenuShow = true;              //플래그 설정
         Animation slide = AnimationUtils.loadAnimation(this, R.anim.sidebar_show);  //closeMenu와 동일
@@ -153,7 +173,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        init(); addSideView();              // #6 _ 온클릭 적용, 사이드바 생성 - 사이드바 실행 전제조건
+        init();
+        addSideView();              // #6 _ 온클릭 적용, 사이드바 생성 - 사이드바 실행 전제조건
 
         // #1 _ 백준 채점1: ID와 문제 번호ProblemNumber 합쳐서 WebView 에 실행.
         Web = findViewById(R.id.Web);       //WebView Web set
@@ -162,7 +183,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {    //next - 아이디 목록에서 다음 참조.
-                ID.setText(ID_LIST[idIndex++ % ID_LIST.length]);    //크기까지 반복
+                if (isC)                     //C 채점
+                    ID.setText(C_ID_LIST[idIndex++ % ID_LIST.length]);    //크기까지 반복
+                else                        //전탐세 채점
+                    ID.setText(ID_LIST[idIndex++ % ID_LIST.length]);    //크기까지 반복
             }
         });
 

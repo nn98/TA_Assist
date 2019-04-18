@@ -66,12 +66,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <!--
         <ImageView
             android:background="@drawable/fadeline2"
             android:layout_width="match_parent"
             android:layout_height="1dp" />
 
-        <!--
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,16 +82,18 @@
         -->
 
         <RelativeLayout
+            android:background="#222"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="top">
 
             <TextView
+                android:textColor="#fff"
+                android:background="@drawable/selectmenu"
                 android:id="@+id/Pamphlet"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="2dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="mOnPopupClick"
@@ -99,17 +101,19 @@
                 android:textSize="15dp" />
 
             <ImageView
-                android:layout_marginTop="38dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/fadeline2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
 
             <TextView
+                android:textColor="#fff"
+                android:background="@drawable/selectmenu"
                 android:id="@+id/Departure"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginLeft="2dp"
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="mOnPopupClick"
@@ -117,7 +121,7 @@
                 android:textSize="15dp" />
 
             <ImageView
-                android:layout_marginTop="73dp"
+                android:layout_marginTop="61dp"
                 android:background="@drawable/fadeline2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />

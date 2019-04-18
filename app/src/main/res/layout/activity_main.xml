@@ -32,10 +32,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
+        <Button
+            android:textSize="5pt"
+            android:id="@+id/change"
+            android:text="change"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content" />
         <EditText
             android:textSize="5pt"
             android:id="@+id/ID"
@@ -49,7 +54,7 @@
             android:textSize="5pt"
             android:id="@+id/next"
             android:text="Next"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content" />
 
         <EditText
@@ -65,7 +70,7 @@
         <Button
             android:textSize="5pt"
             android:id="@+id/submit"
-            android:layout_width="wrap_content"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:text="Browse" />
 
