@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     WebView Web;
     WebSettings mWebSettings;
     int idIndex = 0;
-    static final String[] ID_LIST = {      // #1 _ 백준 채점1: 전탐세 백준 아이디 목록
+    public static final String[] ID_LIST = {      // #1 _ 백준 채점1: 전탐세 백준 아이디 목록
             "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
             "asfg15", "ironhak1106", "201814034", "bmb1416", "gustn8523",
             "gkdus023", "a3920679", "kuntek1953", "hjk0385", "cjs1399",
@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             "7608guswns", "shc3113", "jiwoo60", "shmoon12", "201814128",
             "dlaxodud1217", "201814135", "s9430939", "980lje"
     };
-    static final String[] C_ID_LIST = {
+    public static final String[] C_ID_LIST = {
             "yelin", "vamos", "ujin00", "-", "didekwls0104",
             "ruddl0519", "-", "201914008", "sss4920", "tjdeoduf1228",
             "yeachan0724", "ymreueo", "ksk78030", "minjiii00", "Chelry0",
@@ -201,5 +201,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Web.loadUrl("https://www.acmicpc.net/status?problem_id=" + PN.getText().toString() + "&user_id=" + ID.getText().toString() + "&language_id=-1&result_id=-1");
             }
         });
+
+    }
+
+    public void mOnPopupClick(View v) {
+        Intent i=new Intent(this,CrawlingActivity.class);
+        i.putExtra("URL","https://www.acmicpc.net/status?problem_id=" + PN.getText().toString() + "&user_id=" + ID.getText().toString() + "&language_id=-1&result_id=-1");
+        startActivityForResult(i,1);
     }
 }
