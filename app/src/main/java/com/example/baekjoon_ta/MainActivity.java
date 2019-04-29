@@ -37,10 +37,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class MainActivity extends Activity implements View.OnClickListener {
 
     EditText ID, PN;
-    Button submit, next;
+    Button submit, next, TXT;
     WebView Web;
     WebSettings mWebSettings;
     int idIndex = 0;
@@ -199,6 +203,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 mWebSettings = Web.getSettings();
                 mWebSettings.setJavaScriptEnabled(true);
                 Web.loadUrl("https://www.acmicpc.net/status?problem_id=" + PN.getText().toString() + "&user_id=" + ID.getText().toString() + "&language_id=-1&result_id=-1");
+            }
+        });
+
+        TXT=findViewById(R.id.TXT);
+        TXT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File savefile = new File("C:\\Users\\user\\Documents\\Temp"+"/test.txt");
+                String wString="0\n2\n1\n1\n1\n1\n8\n5\n8\n7\n6\n";
+                try {
+                    FileOutputStream fos = new FileOutputStream(savefile);
+                    fos = openFileOutput(wString,0);
+                    fos.write(wString.getBytes());
+                    fos.close();
+                    Log.v(null,"complete");
+                } catch(IOException e) {e.printStackTrace();}
+
+
             }
         });
 

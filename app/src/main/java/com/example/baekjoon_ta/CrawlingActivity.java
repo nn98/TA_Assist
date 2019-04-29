@@ -36,7 +36,6 @@ public class CrawlingActivity extends AppCompatActivity {
         htmlTitleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println( (cnt+1) +"번째 파싱");
                 JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask();
                 jsoupAsyncTask.execute();
                 cnt++;
@@ -57,9 +56,12 @@ public class CrawlingActivity extends AppCompatActivity {
 
                 Document doc = Jsoup.connect(htmlPageUrl).get();
 
+                //HTML 크롤링 확인-성공.
                 System.out.println(doc.html());
+
+                //필요한 항목: 테이블 내부 문제 번호, 해결 여부, 날짜 
                 //테스트1
-                Elements titles= doc.select("div.text-center input.user_id");
+                Elements titles= doc.select("td[class=result]");
 
                 System.out.println("-------------------------------------------------------------");
                 for(Element e: titles){
