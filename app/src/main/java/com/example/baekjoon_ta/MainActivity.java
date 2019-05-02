@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,17 +38,24 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
+    TextView showResult;
     EditText ID, PN;
-    Button submit, next, TXT;
+    Button submit, next, TXT, Test;
     WebView Web;
     WebSettings mWebSettings;
-    int idIndex = 0;
+    JsoupTask JT;
+    static int idIndex = 0;
     public static final String[] ID_LIST = {      // #1 _ 백준 채점1: 전탐세 백준 아이디 목록
             "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
             "asfg15", "ironhak1106", "201814034", "bmb1416", "gustn8523",
@@ -68,6 +76,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             "choijudy0405", "jhhgms"
     };
     boolean isC = false;
+    // 2: 백준 채점현황 기본 주소
+    private String score1 = "https://www.acmicpc.net/status?problem_id=";
+    private String score2 = "&language_id=-1&result_id=-1";
+    private String target = "";
+    private static String score = "";
 
     // #6 _ 레이아웃1: 사이드바 레이아웃 구현. --기능 구현
     private String TAG = "MainActivity";
@@ -206,29 +219,113 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
 
-        TXT=findViewById(R.id.TXT);
+        TXT = findViewById(R.id.TXT);
         TXT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                JT = new JsoupTask(score1 + PN.getText().toString() + "&user_id=" + ID.getText().toString() + score2);
+                JT.execute();
+                /*
                 File savefile = new File("C:\\Users\\user\\Documents\\Temp"+"/test.txt");
                 String wString="0\n2\n1\n1\n1\n1\n8\n5\n8\n7\n6\n";
                 try {
+
                     FileOutputStream fos = new FileOutputStream(savefile);
                     fos = openFileOutput(wString,0);
                     fos.write(wString.getBytes());
                     fos.close();
                     Log.v(null,"complete");
                 } catch(IOException e) {e.printStackTrace();}
-
-
+                 */
             }
         });
+        showResult = findViewById(R.id.result);
+        Test = findViewById(R.id.Test);
+        Test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                score+=JT.getR();
+                Log.i("result", score);
+                // System.out.println("ResultSet:"+score);
+                showResult.setText(score);
+            }
+        });
+    }
 
+    private class JsoupAsyncTask extends AsyncTask<String, String, String> {
+        String r = "0\n";
+        String target;
+        private JsoupAsyncTask(String target) {
+            this.target=target;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+
+                Document doc = Jsoup.connect(this.target).get();
+
+                //HTML 크롤링 확인-성공.
+                //System.out.println(doc.html());
+
+                //필요한 항목: 테이블 내부 문제 번호, 해결 여부, 날짜
+                //테스트1
+                Elements titles = doc.select("td[class=result]");
+                System.out.println("-------------------------------------------------------------");
+                System.out.println(target);
+                for (Element e : titles) {
+                    if (e.text().equals("맞았습니다!!")) {
+                        r = "1\n";
+                        return null;
+                    }
+                    //System.out.println(target);
+                    //System.out.println("title: " + e.text());
+                }
+                /*
+                    //테스트2
+                    titles= doc.select("div.news-con h2.tit-news");
+
+                    System.out.println("-------------------------------------------------------------");
+                    for(Element e: titles){
+                        System.out.println("title: " + e.text());
+                        htmlContentInStringFormat += e.text().trim() + "\n";
+                    }
+
+                    //테스트3
+                    titles= doc.select("li.section02 div.con h2.news-tl");
+
+                    System.out.println("-------------------------------------------------------------");
+                    for(Element e: titles){
+                        System.out.println("title: " + e.text());
+                        htmlContentInStringFormat += e.text().trim() + "\n";
+                    }
+                    System.out.println("-------------------------------------------------------------");
+                 */
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            System.out.println(r);
+            score += r;
+        }
+
+        private String getR() {
+            return r;
+        }
     }
 
     public void mOnPopupClick(View v) {
-        Intent i=new Intent(this,CrawlingActivity.class);
-        i.putExtra("URL","https://www.acmicpc.net/status?problem_id=" + PN.getText().toString() + "&user_id=" + ID.getText().toString() + "&language_id=-1&result_id=-1");
-        startActivityForResult(i,1);
+        Intent i = new Intent(this, CrawlingActivity.class);
+        i.putExtra("URL", "https://www.acmicpc.net/status?problem_id=" + PN.getText().toString() + "&user_id=" + ID.getText().toString() + "&language_id=-1&result_id=-1");
+        startActivityForResult(i, 1);
     }
 }
