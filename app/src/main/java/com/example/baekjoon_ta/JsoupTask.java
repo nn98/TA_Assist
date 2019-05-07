@@ -9,6 +9,8 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
+//실제 크롤링에 사용하는 JsoupTask. 자세한 주석은 Main 의 JsoupAsyncTask 에.
+
 public class JsoupTask extends AsyncTask<String, String, String> {
     String r = "0\n", target;
 

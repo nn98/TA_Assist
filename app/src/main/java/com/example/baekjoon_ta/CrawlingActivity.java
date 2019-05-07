@@ -15,6 +15,8 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
+
+// #1. 크롤링 테스트용 외부 참고자료
 public class CrawlingActivity extends AppCompatActivity {
     //
     private String htmlPageUrl = "https://www.acmicpc.net/status?problem_id=" + "1085" + "&user_id=" + "gustn8523" + "&language_id=-1&result_id=-1"; //파싱할 홈페이지의 URL주소
