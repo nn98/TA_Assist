@@ -74,6 +74,7 @@ public class JsoupTask extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String result) {
         System.out.println(r);
+        MainActivity.running=false;
     }
 
     public String getR() {

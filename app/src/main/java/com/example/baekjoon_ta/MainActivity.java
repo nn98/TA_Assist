@@ -35,6 +35,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,11 +52,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     TextView showResult;
     EditText ID, PN;
-    Button submit, next, TXT, Test, Reset;
+    Button submit, next, TXT, Test, Reset, Execute;
     WebView Web;
     WebSettings mWebSettings;
-    JsoupTask JT;
-    static int idIndex = 0;
+
+    JsoupAsyncTask JT;
+    static boolean running = true;
+    ProgressBar ongoing;
+    private static boolean mAsyncTaskExecute = false;
+    WaitNotify waitNotify;
+
+    static int idIndex = 0, sCount=1;
     public static final String[] ID_LIST = {      // #1 _ 백준 채점1: 전탐세 백준 아이디 목록
             "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
             "asfg15", "ironhak1106", "201814034", "bmb1416", "gustn8523",
@@ -220,11 +227,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         });
 
         // #1 _ 백준 채점2: WebView 실행 대신 데이터 크롤링 후 결과값 score 에 저장.
+        waitNotify = new WaitNotify();
         TXT = findViewById(R.id.TXT);       //TXT - 아이디 , 문제번호 EditText 에서 값 추출, JsoupTask 실행.
         TXT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JT = new JsoupTask(score1 + PN.getText().toString() + "&user_id=" + ID.getText().toString() + score2);
+                System.out.println("TXT RUN");
+                running = true;
+                JT = new JsoupAsyncTask(score1 + PN.getText().toString() + "&user_id=" + ID.getText().toString() + score2, waitNotify);
                 JT.execute();
                 /*
                 File savefile = new File("C:\\Users\\user\\Documents\\Temp"+"/test.txt");
@@ -245,62 +255,97 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                score+=JT.getR();               //결과값 get, score 에 문자열 형식으로 결합.
+                //System.out.println("TEST RUN");
+                //score += JT.getR();               //결과값 get, score 에 문자열 형식으로 결합.
                 Log.i("result", score);  //score 결과값 출력. System.out 시 초과 문자열 압축 기능 실행
                 // System.out.println("ResultSet:"+score);
                 showResult.setText(score);      //가시적으로 표기.
-                next.performClick();            //자동으로 다음아이디. 기능구별 위해 next 잔여.
+                //next.performClick();            //자동으로 다음아이디. 기능구별 위해 next 잔여.
             }
         });
-        Reset=findViewById(R.id.Reset);         //Reset - 다음 문제 채점을 위해 score 초기화.
+        Reset = findViewById(R.id.Reset);         //Reset - 다음 문제 채점을 위해 score 초기화.
         // if(idIndex / ID_LIST == 1) Reset.performClick(); 편의성 증가를 위해 추가? --- 보류
         Reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                score="";                       //score 초기화.
+                System.out.println("Reset");
+                score = "";                       //score 초기화.
             }
         });
+        //#1 _ 백준 채점3: 기존 기능들 활용해 원클릭 채점기능 구현-0521
+        //synchronized wait/notify 활용. ---http://m.blog.daum.net/jhmoon77/17456070?tp_nil_a=1
+        ongoing=findViewById(R.id.ongoing);
+        Execute = findViewById(R.id.Execute);
+        Execute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("EXECUTE RUN");
+                //ProgressBar set, Toast massage popup.
+                ongoing.setVisibility(View.VISIBLE);
+                Toast.makeText(MainActivity.this,"Execute running",Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < (isC ? C_ID_LIST.length : ID_LIST.length); i++) {
+                    try {
+                        TXT.performClick();
+                        next.performClick();
+                    } catch (Exception e) {
+                        Log.i("E", e.getMessage());
+                    }
+                }
+                //System.out.println("EXECUTE FINISH");
+                //Toast.makeText(MainActivity.this,"Execute finish",Toast.LENGTH_SHORT).show();
+                //ongoing.setVisibility(View.INVISIBLE);
+            }
+        });         // 0521-기본 백준 채점 알고리즘 구현 완료. --TODO 날짜 비교
+        // --TXT, TEXT invisible.
+    }
+
+    private class WaitNotify {
+        synchronized public void mWait() {
+            try {
+                wait();
+            } catch (Exception e) {
+                Log.i("Debug", e.getMessage());
+            }
+        }
+
+        synchronized public void mNotify() {
+            try {
+                notify();
+            } catch (Exception e) {
+                Log.i("Debug", e.getMessage());
+            }
+        }
     }
 
     //데이터 크롤링을 위한 JsopAsyncTask 구현. 실질적 실행은 개별 클래스인 JsoupTask.
     private class JsoupAsyncTask extends AsyncTask<String, String, String> {
-        String r = "0\n";                       //결과값 저장할 r. 기본값 0
-        String target;                          //실행시 사용할 URL. 아이디와 문제번호에서 추출.
-        private JsoupAsyncTask(String target) {
-            this.target=target;                 //JsoupTask 생성자로 target 초기화.
+        String r = "0\n", target;
+        private WaitNotify mWaitNotify = null;
+
+        public JsoupAsyncTask(String target, WaitNotify aWaitNotify) {
+            this.target = target;
+            mWaitNotify = aWaitNotify;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-        }   //Pre 없음.
+        }
 
         @Override
-        protected String doInBackground(String... params) {       //작업
+        protected String doInBackground(String... params) {
             try {
-
-                Document doc = Jsoup.connect(this.target).get();  //target 에서 html 크롤링.
+                if (mAsyncTaskExecute) {
+                    mWaitNotify.mWait();
+                }
+                mAsyncTaskExecute = true;
+                Document doc = Jsoup.connect(this.target).get();
 
                 //HTML 크롤링 확인-성공.
                 //System.out.println(doc.html());
 
                 //필요한 항목: 테이블 내부 문제 번호, 해결 여부, 날짜
-                //-0507 문제번호와 해결여부 해결. 날짜 미결.
                 //테스트1
-                Elements results = doc.select("td[class=result]");  //결과값 컬럼 추출.
-                System.out.println("-------------------------------------------------------------");
-                System.out.println(target);                                   //실행된 URL 표시.
-                for (Element e : results) {                                   //결과값 컬럼들 중
-                    if (e.text().equals("맞았습니다!!")) {                    //맞았을 경우
-                        r = "1\n";                                            //r 1로 변환, 이식 용이하도록 개행.
-                        return null;                                          //dolnBackground 종료.
-                    }
-                    //System.out.println(target);
-                    //System.out.println("title: " + e.text());
-                }                                                             //맞은 컬럼 없을 경우 r 그대로 0.
-                /*
-                제출일자 확인용 --- 제출일자 td 클래스가 없음. 내부 하이퍼링크로 존재.
-                추출 방법은?
                 Elements titles = doc.select("td[class=result]");
                 System.out.println("-------------------------------------------------------------");
                 System.out.println(target);
@@ -312,7 +357,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //System.out.println(target);
                     //System.out.println("title: " + e.text());
                 }
-                 */
                 /*
                     //테스트2
                     titles= doc.select("div.news-con h2.tit-news");
@@ -340,19 +384,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         @Override
-        protected void onPostExecute(String result) {   //doln 종료 후 결과값 r 확인용
-            System.out.println(r);                      //r 출력
-            score += r;                                 //score 에 r값 추가. 실제 사용시 오류. 비동기식_
+        protected void onPostExecute(String result) {
+            System.out.println(r);
+            score += r;
+            MainActivity.running = false;
+            mWaitNotify.mNotify();
+            mAsyncTaskExecute = false;
+            sCount++;
+            //ProgressBar set, Toast massage popup.
+            if(sCount==(isC?C_ID_LIST.length:ID_LIST.length)) {
+                ongoing.setVisibility(View.INVISIBLE);
+                Toast.makeText(MainActivity.this,"Execute finish",Toast.LENGTH_SHORT).show();
+            }
         }
 
-        private String getR() {                         //r getter.
+        public String getR() {
             return r;
         }
-    }
-
-    public void mOnPopupClick(View v) {                 //사이드뷰에서 실행할 외부 액티비티 연결.
-        Intent i = new Intent(this, CrawlingActivity.class);    //현재는 크롤링 테스트 액티비티.
-        i.putExtra("URL", "https://www.acmicpc.net/status?problem_id=" + PN.getText().toString() + "&user_id=" + ID.getText().toString() + "&language_id=-1&result_id=-1");
-        startActivityForResult(i, 1);
     }
 }
