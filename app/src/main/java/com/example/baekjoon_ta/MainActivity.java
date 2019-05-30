@@ -52,9 +52,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     TextView showResult;
     EditText ID, PN;
-    Button submit, next, TXT, Test, Reset, Execute;
-    WebView Web;
-    WebSettings mWebSettings;
+    Button next, TXT, Test, Reset, Execute, Change;
 
     JsoupAsyncTask JT;
     static boolean running = true;
@@ -82,7 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             "leehy321", "o0o0o557", "apple2701", "isf1999", "eunseo5355",
             "choijudy0405", "jhhgms"
     };
-    boolean isC = false;
+    static boolean isC = false;
     // 2: 백준 채점현황 기본 주소
     private String score1 = "https://www.acmicpc.net/status?problem_id=";
     private String score2 = "&language_id=-1&result_id=-1";
@@ -200,8 +198,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         init();
         addSideView();              // #6 _ 온클릭 적용, 사이드바 생성 - 사이드바 실행 전제조건
 
-        // #1 _ 백준 채점1: ID와 문제 번호ProblemNumber 합쳐서 WebView 에 실행.
-        Web = findViewById(R.id.Web);       //WebView Web set
+        // #1 _ 백준 채점1: 이후 구현 변화에 따라 개별 액티비티로 분리.
         ID = findViewById(R.id.ID);         //EditText ID set
         next = findViewById(R.id.next);     //Button next set
         next.setOnClickListener(new View.OnClickListener() {
@@ -213,16 +210,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     ID.setText(ID_LIST[idIndex++ % ID_LIST.length]);    //크기까지 반복
             }
         });
-
         PN = findViewById(R.id.PN);         //EditText PN set
-        submit = findViewById(R.id.submit); //Button submit set
-        submit.setOnClickListener(new View.OnClickListener() {
+        Change=findViewById(R.id.change);
+        Change.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {  //submit - WebView 에 채점 현황 표시.
-                Web.setWebViewClient(new WebViewClient());
-                mWebSettings = Web.getSettings();
-                mWebSettings.setJavaScriptEnabled(true);
-                Web.loadUrl("https://www.acmicpc.net/status?problem_id=" + PN.getText().toString() + "&user_id=" + ID.getText().toString() + "&language_id=-1&result_id=-1");
+            public void onClick(View v) {
+                if(isC) isC=false;
+                else isC=true;
             }
         });
 
@@ -268,6 +262,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                idIndex=0;
                 System.out.println("Reset");
                 score = "";                       //score 초기화.
             }
@@ -282,7 +277,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 System.out.println("EXECUTE RUN");
                 //ProgressBar set, Toast massage popup.
                 ongoing.setVisibility(View.VISIBLE);
-                Toast.makeText(MainActivity.this,"Execute running",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Execute running", Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < (isC ? C_ID_LIST.length : ID_LIST.length); i++) {
                     try {
                         TXT.performClick();
@@ -295,7 +290,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //Toast.makeText(MainActivity.this,"Execute finish",Toast.LENGTH_SHORT).show();
                 //ongoing.setVisibility(View.INVISIBLE);
             }
-        });         // 0521-기본 백준 채점 알고리즘 구현 완료. --TODO 날짜 비교
+        });
+                 // 0521-기본 백준 채점 알고리즘 구현 완료. --TODO 날짜 비교
         // --TXT, TEXT invisible.
     }
 
