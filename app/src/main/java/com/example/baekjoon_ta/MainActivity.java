@@ -47,12 +47,14 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
     TextView showResult;
     EditText ID, PN;
-    Button next, TXT, Test, Reset, Execute, Change, Major, Cp, Cs;
+    Button next, TXT, Test, Reset, Execute, Change, Major, Cp, Ce;
     LinearLayout select;
 
     JsoupAsyncTask JT;
@@ -222,7 +224,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 // #1 _ 1 -> 4
                 // #1 _ 백준 채점4: 채점 케이스 수정. 대생세 추가, 다수 분기용 스위치문.
                 // -> 2차원 배열로 변경, 행 번호로 분기.
-                ID.setText(ID_LIST[isCase][idIndex++ % ID_LIST.length]);    //크기까지 반복
+                ID.setText(ID_LIST[isCase][idIndex++ % ID_LIST[isCase].length]);    //크기까지 반복
             }
         });
         // #1 _ 4
@@ -252,8 +254,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 select.setVisibility(View.INVISIBLE);
             }
         });
-        Cs=findViewById(R.id.Cs);
-        Cs.setOnClickListener(new View.OnClickListener() {
+        Ce=findViewById(R.id.Ce);
+        Ce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isCase=2;
@@ -384,18 +386,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //System.out.println(doc.html());
 
                 //필요한 항목: 테이블 내부 문제 번호, 해결 여부, 날짜
-                //테스트1
                 Elements titles = doc.select("td[class=result]");
                 System.out.println("-------------------------------------------------------------");
                 System.out.println(target);
                 for (Element e : titles) {
                     if (e.text().equals("맞았습니다!!")) {
                         r = "1\n";
-                        return null;
+                        break;
                     }
                     //System.out.println(target);
                     //System.out.println("title: " + e.text());
                 }
+                // #1 _ 백준 채점4: 시간 체크 추가 real-time-update , data-original-title
+                titles = doc.select("a[class=real-time-update]");
+                for (Element e : titles) {
+                    System.out.println(e.text());
+                    System.out.println(e.text("data-original-title"));
+                    // 정규식 공부 필요
+                    Pattern pattern = Pattern.compile("[*0-9\"]");
+                    Matcher matcher = pattern.matcher(e.text("data-original-title").toString());
+                    while(matcher.find()) System.out.print(matcher.group());
+                    System.out.println();
+                    return null;
+                    //System.out.println(target);
+                    //System.out.println("title: " + e.text());
+                }
+                // 0604 제출 날짜 크롤링 성공, """""""2019429142929""1556515769""""" 형식. 스플릿과 제출기한 비교 구현 필요
                 /*
                     //테스트2
                     titles= doc.select("div.news-con h2.tit-news");
