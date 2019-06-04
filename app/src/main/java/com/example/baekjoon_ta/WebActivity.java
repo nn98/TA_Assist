@@ -11,10 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static com.example.baekjoon_ta.MainActivity.C_ID_LIST;
 import static com.example.baekjoon_ta.MainActivity.ID_LIST;
-import static com.example.baekjoon_ta.MainActivity.isC;
 import static com.example.baekjoon_ta.MainActivity.idIndex;
+import static com.example.baekjoon_ta.MainActivity.isCase;
 
 public class WebActivity extends Activity {
 
@@ -35,10 +34,7 @@ public class WebActivity extends Activity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {    //next - 아이디 목록에서 다음 참조.
-                if (isC)                     //C 채점
-                    ID.setText(C_ID_LIST[idIndex++ % C_ID_LIST.length]);    //크기까지 반복
-                else                        //전탐세 채점
-                    ID.setText(ID_LIST[idIndex++ % ID_LIST.length]);    //크기까지 반복
+                    ID.setText(ID_LIST[isCase][idIndex++ % ID_LIST.length]);    //크기까지 반복
             }
         });
 

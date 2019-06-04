@@ -28,6 +28,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:id="@+id/select"
+        android:background="#555"
+        android:visibility="invisible"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/Input"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="Major"
+            android:id="@+id/Major"
+            android:textSize="5pt"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="CP"
+            android:id="@+id/Cp"
+            android:textSize="5pt"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:text="CE"
+            android:id="@+id/Ce"
+            android:textSize="5pt"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <TextView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/Input"

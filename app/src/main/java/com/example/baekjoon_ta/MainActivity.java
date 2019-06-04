@@ -52,7 +52,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     TextView showResult;
     EditText ID, PN;
-    Button next, TXT, Test, Reset, Execute, Change;
+    Button next, TXT, Test, Reset, Execute, Change, Major, Cp, Cs;
+    LinearLayout select;
 
     JsoupAsyncTask JT;
     static boolean running = true;
@@ -60,27 +61,41 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static boolean mAsyncTaskExecute = false;
     WaitNotify waitNotify;
 
+    // #1 _ 백준 채점1: 전탐세 백준 아이디 목록
+    // #1 _ 백준 채점4: 아이디 목록 추가, 수정. 2차원배열로 변환, 행 번호 isCase 변수 선언.
     static int idIndex = 0, sCount=1;
-    public static final String[] ID_LIST = {      // #1 _ 백준 채점1: 전탐세 백준 아이디 목록
-            "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
+    public static final String[][] ID_LIST = {
+            {
+                "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
             "asfg15", "ironhak1106", "201814034", "bmb1416", "gustn8523",
             "gkdus023", "a3920679", "kuntek1953", "hjk0385", "cjs1399",
             "doseon1226", "jiyeongstar", "leemoon63", "qwe916", "ggs4029",
             "06zzkimzz06", "kj980926", "twoddal2", "hj980608", "zoeyourlife",
             "7608guswns", "shc3113", "jiwoo60", "shmoon12", "201814128",
             "dlaxodud1217", "201814135", "s9430939", "980lje"
+            },
+            {
+                    "yelin", "vamos", "ujin00", "-", "didekwls0104",
+                    "ruddl0519", "-", "201914008", "sss4920", "tjdeoduf1228",
+                    "yeachan0724", "ymreueo", "ksk78030", "minjiii00", "Chelry0",
+                    "-", "-", "201914018", "nahyunho1030", "kll4400",
+                    "ekdms3868", "gjwldud0719", "pyr981125", "gpwl0773", "0928bh",
+                    "201914081", "wndud5750", "epselcks1", "nada2121", "bsm3737",
+                    "leehy321", "o0o0o557", "apple2701", "isf1999", "eunseo5355",
+                    "choijudy0405", "jhhgms"
+            },
+            {
+                    "0928bh","phw0204","yelin","vamos","ujin00"
+                    ,"-","didekwls0104","ruddl0519","cindy1078","201914008"
+                    ,"sss4920","tjdeoduf1228","yeachan0724","ymreueo","ksk78030"
+                    ,"minjiii00","-","-","-","201914018"
+                    ,"nahyunho1030","kll4400","ekdms3868","gjwldud0719","pyr981125"
+                    ,"gpwl0773","201914081","wndud5750","epselcks1","nada2121"
+                    ,"bsm3737","leehy321","chorong557@naver.com","o0o0o557","apple2701"
+                    ,"isf1999","eunseo5355","choijudy0405","jhhgms"
+            }
     };
-    public static final String[] C_ID_LIST = {
-            "yelin", "vamos", "ujin00", "-", "didekwls0104",
-            "ruddl0519", "-", "201914008", "sss4920", "tjdeoduf1228",
-            "yeachan0724", "ymreueo", "ksk78030", "minjiii00", "Chelry0",
-            "-", "-", "201914018", "nahyunho1030", "kll4400",
-            "ekdms3868", "gjwldud0719", "pyr981125", "gpwl0773", "0928bh",
-            "201914081", "wndud5750", "epselcks1", "nada2121", "bsm3737",
-            "leehy321", "o0o0o557", "apple2701", "isf1999", "eunseo5355",
-            "choijudy0405", "jhhgms"
-    };
-    static boolean isC = false;
+    static int isCase = 0;
     // 2: 백준 채점현황 기본 주소
     private String score1 = "https://www.acmicpc.net/status?problem_id=";
     private String score2 = "&language_id=-1&result_id=-1";
@@ -204,19 +219,45 @@ public class MainActivity extends Activity implements View.OnClickListener {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {    //next - 아이디 목록에서 다음 참조.
-                if (isC)                     //C 채점
-                    ID.setText(C_ID_LIST[idIndex++ % C_ID_LIST.length]);    //크기까지 반복
-                else                        //전탐세 채점
-                    ID.setText(ID_LIST[idIndex++ % ID_LIST.length]);    //크기까지 반복
+                // #1 _ 1 -> 4
+                // #1 _ 백준 채점4: 채점 케이스 수정. 대생세 추가, 다수 분기용 스위치문.
+                // -> 2차원 배열로 변경, 행 번호로 분기.
+                ID.setText(ID_LIST[isCase][idIndex++ % ID_LIST.length]);    //크기까지 반복
             }
         });
+        // #1 _ 4
+        select=findViewById(R.id.select);
         PN = findViewById(R.id.PN);         //EditText PN set
         Change=findViewById(R.id.change);
         Change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isC) isC=false;
-                else isC=true;
+                // #1 _ 4: 케이스 변경용 리스너
+                select.setVisibility(View.VISIBLE);
+            }
+        });
+        Major=findViewById(R.id.Major);
+        Major.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCase=0;
+                select.setVisibility(View.INVISIBLE);
+            }
+        });
+        Cp=findViewById(R.id.Cp);
+        Cp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCase=1;
+                select.setVisibility(View.INVISIBLE);
+            }
+        });
+        Cs=findViewById(R.id.Cs);
+        Cs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCase=2;
+                select.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -263,6 +304,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 idIndex=0;
+                sCount=0;
                 System.out.println("Reset");
                 score = "";                       //score 초기화.
             }
@@ -278,7 +320,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //ProgressBar set, Toast massage popup.
                 ongoing.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, "Execute running", Toast.LENGTH_SHORT).show();
-                for (int i = 0; i < (isC ? C_ID_LIST.length : ID_LIST.length); i++) {
+
+                for (int i = 0; i < (ID_LIST[isCase].length); i++) {
                     try {
                         TXT.performClick();
                         next.performClick();
@@ -388,7 +431,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             mAsyncTaskExecute = false;
             sCount++;
             //ProgressBar set, Toast massage popup.
-            if(sCount==(isC?C_ID_LIST.length:ID_LIST.length)) {
+            if(sCount==(ID_LIST[isCase].length)) {
                 ongoing.setVisibility(View.INVISIBLE);
                 Toast.makeText(MainActivity.this,"Execute finish",Toast.LENGTH_SHORT).show();
             }
