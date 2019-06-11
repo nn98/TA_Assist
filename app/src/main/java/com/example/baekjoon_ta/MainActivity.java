@@ -65,16 +65,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     // #1 _ 백준 채점1: 전탐세 백준 아이디 목록
     // #1 _ 백준 채점4: 아이디 목록 추가, 수정. 2차원배열로 변환, 행 번호 isCase 변수 선언.
-    static int idIndex = 0, sCount=1;
+    static int idIndex = 0, sCount = 1;
     public static final String[][] ID_LIST = {
             {
-                "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
-            "asfg15", "ironhak1106", "201814034", "bmb1416", "gustn8523",
-            "gkdus023", "a3920679", "kuntek1953", "hjk0385", "cjs1399",
-            "doseon1226", "jiyeongstar", "leemoon63", "qwe916", "ggs4029",
-            "06zzkimzz06", "kj980926", "twoddal2", "hj980608", "zoeyourlife",
-            "7608guswns", "shc3113", "jiwoo60", "shmoon12", "201814128",
-            "dlaxodud1217", "201814135", "s9430939", "980lje"
+                    "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
+                    "asfg15", "ironhak1106", "201814034", "bmb1416", "gustn8523",
+                    "gkdus023", "a3920679", "kuntek1953", "hjk0385", "cjs1399",
+                    "doseon1226", "jiyeongstar", "leemoon63", "qwe916", "ggs4029",
+                    "06zzkimzz06", "kj980926", "twoddal2", "hj980608", "zoeyourlife",
+                    "7608guswns", "shc3113", "jiwoo60", "shmoon12", "201814128",
+                    "dlaxodud1217", "201814135", "s9430939", "980lje"
             },
             {
                     "yelin", "vamos", "ujin00", "-", "didekwls0104",
@@ -87,14 +87,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     "choijudy0405", "jhhgms"
             },
             {
-                    "0928bh","phw0204","yelin","vamos","ujin00"
-                    ,"-","didekwls0104","ruddl0519","cindy1078","201914008"
-                    ,"sss4920","tjdeoduf1228","yeachan0724","ymreueo","ksk78030"
-                    ,"minjiii00","-","-","-","201914018"
-                    ,"nahyunho1030","kll4400","ekdms3868","gjwldud0719","pyr981125"
-                    ,"gpwl0773","201914081","wndud5750","epselcks1","nada2121"
-                    ,"bsm3737","leehy321","chorong557@naver.com","o0o0o557","apple2701"
-                    ,"isf1999","eunseo5355","choijudy0405","jhhgms"
+                    "0928bh", "phw0204", "yelin", "vamos", "ujin00"
+                    , "-", "didekwls0104", "ruddl0519", "cindy1078", "201914008"
+                    , "sss4920", "tjdeoduf1228", "yeachan0724", "ymreueo", "ksk78030"
+                    , "minjiii00", "-", "-", "-", "201914018"
+                    , "nahyunho1030", "kll4400", "ekdms3868", "gjwldud0719", "pyr981125"
+                    , "gpwl0773", "201914081", "wndud5750", "epselcks1", "nada2121"
+                    , "bsm3737", "leehy321", "chorong557@naver.com", "o0o0o557", "apple2701"
+                    , "isf1999", "eunseo5355", "choijudy0405", "jhhgms"
             }
     };
     static int isCase = 0;
@@ -228,9 +228,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         });
         // #1 _ 4
-        select=findViewById(R.id.select);
+        select = findViewById(R.id.select);
         PN = findViewById(R.id.PN);         //EditText PN set
-        Change=findViewById(R.id.change);
+        Change = findViewById(R.id.change);
         Change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,27 +238,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 select.setVisibility(View.VISIBLE);
             }
         });
-        Major=findViewById(R.id.Major);
+        Major = findViewById(R.id.Major);
         Major.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isCase=0;
+                isCase = 0;
                 select.setVisibility(View.INVISIBLE);
             }
         });
-        Cp=findViewById(R.id.Cp);
+        Cp = findViewById(R.id.Cp);
         Cp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isCase=1;
+                isCase = 1;
                 select.setVisibility(View.INVISIBLE);
             }
         });
-        Ce=findViewById(R.id.Ce);
+        Ce = findViewById(R.id.Ce);
         Ce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isCase=2;
+                isCase = 2;
                 select.setVisibility(View.INVISIBLE);
             }
         });
@@ -305,15 +305,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                idIndex=0;
-                sCount=0;
+                idIndex = 0;
+                sCount = 0;
                 System.out.println("Reset");
                 score = "";                       //score 초기화.
             }
         });
         //#1 _ 백준 채점3: 기존 기능들 활용해 원클릭 채점기능 구현-0521
         //synchronized wait/notify 활용. ---http://m.blog.daum.net/jhmoon77/17456070?tp_nil_a=1
-        ongoing=findViewById(R.id.ongoing);
+        ongoing = findViewById(R.id.ongoing);
         Execute = findViewById(R.id.Execute);
         Execute.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -325,8 +325,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 for (int i = 0; i < (ID_LIST[isCase].length); i++) {
                     try {
-                        TXT.performClick();
                         next.performClick();
+                        TXT.performClick();
                     } catch (Exception e) {
                         Log.i("E", e.getMessage());
                     }
@@ -336,7 +336,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //ongoing.setVisibility(View.INVISIBLE);
             }
         });
-                 // 0521-기본 백준 채점 알고리즘 구현 완료. --TODO 날짜 비교
+        // 0521-기본 백준 채점 알고리즘 구현 완료. --TODO 날짜 비교
         // --TXT, TEXT invisible.
     }
 
@@ -405,13 +405,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     // 정규식 공부 필요
                     Pattern pattern = Pattern.compile("[*0-9\"]");
                     Matcher matcher = pattern.matcher(e.text("data-original-title").toString());
-                    while(matcher.find()) System.out.print(matcher.group());
+                    while (matcher.find()) System.out.print(matcher.group());
                     System.out.println();
                     return null;
                     //System.out.println(target);
                     //System.out.println("title: " + e.text());
                 }
-                // 0604 제출 날짜 크롤링 성공, """""""2019429142929""1556515769""""" 형식. 스플릿과 제출기한 비교 구현 필요
+                // 0604 - 제출 날짜 크롤링 성공, """""""2019429142929""1556515769""""" 형식. 스플릿과 제출기한 비교 구현 필요
                 /*
                     //테스트2
                     titles= doc.select("div.news-con h2.tit-news");
@@ -447,9 +447,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             mAsyncTaskExecute = false;
             sCount++;
             //ProgressBar set, Toast massage popup.
-            if(sCount==(ID_LIST[isCase].length)) {
+            if (sCount == (ID_LIST[isCase].length)) {
                 ongoing.setVisibility(View.INVISIBLE);
-                Toast.makeText(MainActivity.this,"Execute finish",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Execute finish", Toast.LENGTH_SHORT).show();
             }
         }
 
