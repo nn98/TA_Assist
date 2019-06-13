@@ -20,6 +20,7 @@
         <activity android:name=".TemplateActivity" />
         <activity android:name=".DepartureActivity" />
         <activity android:name=".CrawlingActivity" />
+        <activity android:name=".DeskActivity" />
     </application>
 
 </manifest>
