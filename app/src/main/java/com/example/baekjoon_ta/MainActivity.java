@@ -340,6 +340,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // --TXT, TEXT invisible.
     }
 
+    public void mOnPopupClick1(View v) {
+        //데이터 담아서 팝업(액티비티) 호출 데이터 전송에 사용되는 Intent 중요
+        //인텐트 정의
+        Intent intent = new Intent(this, CrawlingActivity.class);
+        //전송할 값들 인텐트에 삽입
+        //아마 실행메소드
+        startActivityForResult(intent, 1);
+    }
+
+    public void mOnPopupClick2(View v) {
+        //데이터 담아서 팝업(액티비티) 호출 데이터 전송에 사용되는 Intent 중요
+        //인텐트 정의
+        Intent intent = new Intent(this, CrawlingActivity.class);
+        //전송할 값들 인텐트에 삽입
+        //아마 실행메소드
+        startActivityForResult(intent, 1);
+    }
+
+    public void mOnPopupClick3(View v) {
+        //데이터 담아서 팝업(액티비티) 호출 데이터 전송에 사용되는 Intent 중요
+        //인텐트 정의
+        Intent intent = new Intent(this, CrawlingActivity.class);
+        //전송할 값들 인텐트에 삽입
+        //아마 실행메소드
+        startActivityForResult(intent, 1);
+    }
+
     private class WaitNotify {
         synchronized public void mWait() {
             try {

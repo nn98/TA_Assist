@@ -94,9 +94,9 @@
         android:id="@+id/Reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:text="Reset"
         android:textSize="5pt"
+        app:layout_constraintLeft_toLeftOf="@id/Test"
         app:layout_constraintBottom_toTopOf="@id/Test"
         app:layout_constraintRight_toLeftOf="@id/ongoing" />
 
@@ -129,6 +129,21 @@
         android:textSize="5pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:id="@+id/PD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="DeadLine"
+        android:textColor="#fff"
+        android:textColorHint="#aaa"
+        android:textSize="7pt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintLeft_toRightOf="@id/change"
+        app:layout_constraintRight_toLeftOf="@id/Test"
+        app:layout_constraintBottom_toTopOf="@id/PN"/>
 
     <EditText
         android:id="@+id/PN"

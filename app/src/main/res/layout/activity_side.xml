@@ -96,7 +96,7 @@
                 android:layout_marginLeft="2dp"
                 android:clickable="true"
                 android:gravity="center"
-                android:onClick="mOnPopupClick"
+                android:onClick="mOnPopupClick1"
                 android:text="Pamphlet"
                 android:textSize="15dp" />
 
@@ -116,7 +116,7 @@
                 android:layout_marginLeft="2dp"
                 android:clickable="true"
                 android:gravity="center"
-                android:onClick="mOnPopupClick"
+                android:onClick="mOnPopupClick2"
                 android:text="Departure"
                 android:textSize="15dp" />
 
@@ -129,15 +129,15 @@
             <TextView
                 android:textColor="#fff"
                 android:background="@drawable/selectmenu"
-                android:id="@+id/Crowling"
+                android:id="@+id/Crawling"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginTop="62dp"
                 android:layout_marginLeft="2dp"
                 android:clickable="true"
                 android:gravity="center"
-                android:onClick="mOnPopupClick"
-                android:text="Departure"
+                android:onClick="mOnPopupClick3"
+                android:text="Crawling"
                 android:textSize="15dp" />
 
             <ImageView
