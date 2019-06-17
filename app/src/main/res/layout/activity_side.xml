@@ -166,6 +166,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp" />
 
+            <TextView
+                android:textColor="#fff"
+                android:background="@drawable/selectmenu"
+                android:id="@+id/Web"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="124dp"
+                android:layout_marginLeft="2dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="mOnPopupClick5"
+                android:text="WebView"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_marginTop="154dp"
+                android:background="@drawable/fadeline2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
             <ImageButton
                 android:id="@+id/btn_side_level_1"
                 android:layout_width="21dp"

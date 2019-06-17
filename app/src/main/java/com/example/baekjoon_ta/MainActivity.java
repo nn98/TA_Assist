@@ -27,9 +27,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -102,6 +99,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private String score1 = "https://www.acmicpc.net/status?problem_id=";
     private String score2 = "&language_id=-1&result_id=-1";
     private String target = "";
+    protected static String DeadLine="201903181825";
+    protected static String DateResult="";
     private static String score = "";
 
     // #6 _ 레이아웃1: 사이드바 레이아웃 구현. --기능 구현
@@ -376,6 +375,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         startActivityForResult(intent, 1);
     }
 
+    public void mOnPopupClick5(View v) {
+        //데이터 담아서 팝업(액티비티) 호출 데이터 전송에 사용되는 Intent 중요
+        //인텐트 정의
+        Intent intent = new Intent(this, WebActivity.class);
+        //전송할 값들 인텐트에 삽입
+        //아마 실행메소드
+        startActivityForResult(intent, 1);
+    }
+
     private class WaitNotify {
         synchronized public void mWait() {
             try {
@@ -422,11 +430,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //System.out.println(doc.html());
 
                 //필요한 항목: 테이블 내부 문제 번호, 해결 여부, 날짜
-                Elements titles = doc.select("td[class=result]");
+                Elements titles = doc.select("td[class=result]");   //제출 여부 확인
                 System.out.println("-------------------------------------------------------------");
                 System.out.println(target);
                 for (Element e : titles) {
-                    if (e.text().equals("맞았습니다!!")) {
+                    if (e.text().equals("맞았습니다!!")) {                   //정오 판별
                         r = "1\n";
                         break;
                     }
@@ -434,15 +442,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //System.out.println("title: " + e.text());
                 }
                 // #1 _ 백준 채점4: 시간 체크 추가 real-time-update , data-original-title
-                titles = doc.select("a[class=real-time-update]");
+                titles = doc.select("a[class=real-time-update]");   //제출일자 확인
                 for (Element e : titles) {
                     System.out.println(e.text());
-                    System.out.println(e.text("data-original-title"));
+                    System.out.println(e.text("data-original-title"));          //비교용 포맷
                     // 정규식 공부 필요
-                    Pattern pattern = Pattern.compile("[*0-9\"]");
+                    Pattern pattern = Pattern.compile("[*0-9\"]");              //정규식 포맷
+                    String date="";                                             //제출일자 저장용
                     Matcher matcher = pattern.matcher(e.text("data-original-title").toString());
-                    while (matcher.find()) System.out.print(matcher.group());
+                    while (matcher.find()) {
+                        System.out.print(matcher.group());
+                        date+=matcher.group();                                  //제출일자 빌드
+                    }
                     System.out.println();
+                    if(isDate(date)){                                           //기한 판별
+                        DateResult+="1\n";
+                    }
+                    else {
+                        DateResult+="0\n";
+                    }
                     return null;
                     //System.out.println(target);
                     //System.out.println("title: " + e.text());
@@ -474,6 +492,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
             return null;
         }
 
+        protected  boolean isDate(String t) {
+            return DeadLine.compareTo(t)>=0;
+
+        }
         @Override
         protected void onPostExecute(String result) {
             System.out.println(r);
