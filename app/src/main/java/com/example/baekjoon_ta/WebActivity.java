@@ -18,7 +18,7 @@ import static com.example.baekjoon_ta.MainActivity.isCase;
 
 public class WebActivity extends Activity {
 
-    Button submit,next,B,sR;
+    Button submit,next,B,sR,b0,b1;
     WebView Web;
     EditText ID, PN, bT;
     WebSettings mWebSettings;
@@ -69,6 +69,22 @@ public class WebActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Log.i("result",resultString);
+            }
+        });
+        b0=new Button(this);
+        b1=new Button(this);
+
+        b0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resultString+="0\n";
+            }
+        });
+
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resultString+="1\n";
             }
         });
     }
