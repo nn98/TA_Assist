@@ -34,9 +34,9 @@ public class DeskActivity extends AppCompatActivity {
         LinearLayout.LayoutParams numLP=new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT);
         numLP.weight=1;
         numLP.setMargins(80,0,0,10);
-        name=new EditText[51];
-        number=new EditText[51];
-        for(int i=1;i<51;i+=2) {
+        name=new EditText[61];
+        number=new EditText[61];
+        for(int i=1;i<name.length;i+=2) {
             LL[0]=new LinearLayout(this);
             LL[0].setWeightSum(2);
             for(int j=i;j<i+2;j++) {
@@ -52,15 +52,15 @@ public class DeskActivity extends AppCompatActivity {
                 name[j].setHintTextColor(Color.rgb(200,200,200));
                 name[j].setTextColor(Color.rgb(255,255,255));
                 name[j].setLayoutParams(nameLP);
-                LL[1].addView(number[j]);
                 LL[1].addView(name[j]);
+                LL[1].addView(number[j]);
                 if(j%2==1) LL[1].setBackgroundColor(Color.rgb(120,120,120));
                 else LL[1].setBackgroundColor(Color.rgb(60,60,60));
                 LL[0].addView(LL[1]);
             }
             LL1.addView(LL[0]);
         }
-        result=new String[51];
+        result=new String[61];
         Arrays.fill(result,"");
         Button b=new Button(this);
         b.setText("Submit");
@@ -74,13 +74,14 @@ public class DeskActivity extends AppCompatActivity {
                 }
                 System.out.println(Arrays.toString(result));
                 for(int i=1;i<result.length;i+=2) {
+                    r+="\t";
                     if(!result[i].equals(""))  r+=result[i];
                     r+="\t";
                     if(!result[i+1].equals("")) r+=result[i+1];
                     r+="\n";
                 }
-//                Log.i("result", r);  //result 결과값 출력. System.out 시 초과 문자열 압축 기능 실행
-                System.out.print(r);
+                Log.i("result", r);  //result 결과값 출력. System.out 시 초과 문자열 압축 기능 실행
+//                System.out.print(r);
             }
         });
         LL1.addView(b);
