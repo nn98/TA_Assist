@@ -19,12 +19,15 @@ import java.util.Arrays;
  * 이름 + \t + 번호 식으로 입력
  * 강의실 선택 후 제출
  * Log 콘솔에 해당 강의실 좌석 배치도에 맞춰 좌석번호, 학생성명 양식 출력
- * */
+ */
+
+// 짜잔 뻘짓이였습니다~
 
 public class DeskActivity extends AppCompatActivity {
 
     LinearLayout LL1, LL[], lectureRoom;
-    EditText[] name;
+    //    EditText[] name;
+    EditText input;
     String[] result;
     Button[] lectureRooms;
 
@@ -35,7 +38,9 @@ public class DeskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_desk);
+
         LL1 = findViewById(R.id.LL1);
+        /*
         LL = new LinearLayout[2];
         LinearLayout.LayoutParams backLP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         backLP.weight = 1;
@@ -71,10 +76,17 @@ public class DeskActivity extends AppCompatActivity {
             }
             LL1.addView(LL[0]);
         }
-        result = new String[61];
-        Arrays.fill(result, "");
+        */
+
+//        result = new String[61];
         Button b = new Button(this);
         b.setText("Submit");
+
+        /***레이아웃 대폭 수정***/
+        input = new EditText(this);
+        LinearLayout.LayoutParams inLP = new LinearLayout.LayoutParams(-1, -2);
+        input.setLayoutParams(inLP);
+        LL1.addView(input);
 
         /*********************강의실별 양식 작성*************************/
 
@@ -82,15 +94,21 @@ public class DeskActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String r = "\n";  //결과 출력, 복사용
+                String r = "------------------------\n";  //결과 출력, 복사용
+                String[] in = input.getText().toString().split("\n");
+                result = new String[50];
+                Arrays.fill(result, "");
                 switch (lectureRoomNumber) {    //강의실 판별
                     case 0: //6202 강의실
                         // 좌석 좌 - > 우 증가
-                        for (int i = 1; i < name.length; i++) {
-                            if (!name[i].getText().toString().equals("")) {
-                                String[] sp=name[i].getText().toString().split("\t");
-                                result[Integer.parseInt(sp[1])] = sp[0];
-                            }
+                        for (int i = 0; i < in.length; i++) {
+//                            if (!name[i].getText().toString().equals("")) {
+//                                String[] sp=name[i].getText().toString().split("\t");
+//                                result[Integer.parseInt(sp[1])] = sp[0];
+//                        }
+                            String[] sp = in[i].split("\t");
+                            result[Integer.parseInt(sp[1])] = sp[0];
+
                         }
 //                System.out.println(Arrays.toString(result));
 
@@ -98,10 +116,10 @@ public class DeskActivity extends AppCompatActivity {
                         for (int i = 37; i > 0; i -= 6) {
                             r += "\t";
                             for (int j = 0; j < 6; j++) {
-                                r+=""+(i+j);
+                                r += "" + (i + j);
                                 if (j % 2 == 0)
                                     r += "\t";
-                                else if(j==5)
+                                else if (j == 5)
                                     break;
                                 else
                                     r += "\t\t";
@@ -114,7 +132,7 @@ public class DeskActivity extends AppCompatActivity {
                                 if (!result[i + j].equals("")) r += result[i + j];
                                 if (j % 2 == 0)
                                     r += "\t";
-                                else if(j==5)
+                                else if (j == 5)
                                     break;
                                 else
                                     r += "\t\t";
@@ -124,11 +142,13 @@ public class DeskActivity extends AppCompatActivity {
                         break;
                     case 1: //6405 강의실
                         // 좌석 좌 - > 우 감소
-                        for (int i = 1; i < name.length; i++) {
-                            if (!name[i].getText().toString().equals("")) {
-                                String[] sp=name[i].getText().toString().split("\t");
-                                result[Integer.parseInt(sp[1])] = sp[0];
-                            }
+                        for (int i = 1; i < in.length; i++) {
+//                            if (!name[i].getText().toString().equals("")) {
+//                                String[] sp = name[i].getText().toString().split("\t");
+//                                result[Integer.parseInt(sp[1])] = sp[0];
+//                            }
+                            String[] sp = in[i].split("\t");
+                            result[Integer.parseInt(sp[1])] = sp[0];
                         }
 //                System.out.println(Arrays.toString(result));
 
@@ -136,10 +156,10 @@ public class DeskActivity extends AppCompatActivity {
                         for (int i = 30; i > 0; i -= 6) {
                             r += "\t";
                             for (int j = 0; j < 6; j++) {
-                                r+=""+(i-j);
-                                if (j==2)
+                                r += "" + (i - j);
+                                if (j == 2)
                                     r += "\t\t";
-                                else if(j==5)
+                                else if (j == 5)
                                     break;
                                 else
                                     r += "\t";
@@ -150,9 +170,9 @@ public class DeskActivity extends AppCompatActivity {
                             r += "\t";
                             for (int j = 0; j < 6; j++) {
                                 if (!result[i - j].equals("")) r += result[i - j];
-                                if (j==2)
+                                if (j == 2)
                                     r += "\t\t";
-                                else if(j==5)
+                                else if (j == 5)
                                     break;
                                 else
                                     r += "\t";
@@ -162,26 +182,28 @@ public class DeskActivity extends AppCompatActivity {
                         break;
                     case 2:
                         // 좌석 좌 - > 우 감소
-                        for (int i = 1; i < name.length; i++) {
-                            if (!name[i].getText().toString().equals("")) {
-                                String[] sp=name[i].getText().toString().split("\t");
-                                result[Integer.parseInt(sp[1])] = sp[0];
-                            }
+                        for (int i = 1; i < in.length; i++) {
+//                            if (!name[i].getText().toString().equals("")) {
+//                                String[] sp = name[i].getText().toString().split("\t");
+//                                result[Integer.parseInt(sp[1])] = sp[0];
+                            String[] sp = in[i].split("\t");
+                            result[Integer.parseInt(sp[1])] = sp[0];
                         }
+
 //                System.out.println(Arrays.toString(result));
 
                         // 좌석 번호 입력
                         for (int i = 47; i > 0; i -= 7) {
                             r += "\t";
                             for (int j = 0; j < 7; j++) {
-                                if((i-j==13|i-j==7)&&j==6) {
+                                if ((i - j == 13 | i - j == 7) && j == 6) {
                                     i++;
                                     break;
                                 }
-                                r+=""+(i-j);
-                                if (j==2)
+                                r += "" + (i - j);
+                                if (j == 2)
                                     r += "\t\t";
-                                else if(j==6)
+                                else if (j == 6)
                                     break;
                                 else
                                     r += "\t";
@@ -192,9 +214,9 @@ public class DeskActivity extends AppCompatActivity {
                             r += "\t";
                             for (int j = 0; j < 6; j++) {
                                 if (!result[i - j].equals("")) r += result[i - j];
-                                if (j==2)
+                                if (j == 2)
                                     r += "\t\t";
-                                else if(j==6)
+                                else if (j == 6)
                                     break;
                                 else
                                     r += "\t";
@@ -210,7 +232,9 @@ public class DeskActivity extends AppCompatActivity {
         });
 
         //강의실 선택 버튼 레이아웃
-        lectureRoom = new LinearLayout(this);
+        lectureRoom = new
+
+                LinearLayout(this);
         lectureRoom.setLayoutParams(new LinearLayout.LayoutParams(-1, -2));
         lectureRoom.setWeightSum(3);
         lectureRoom.setOrientation(LinearLayout.HORIZONTAL);
@@ -234,50 +258,56 @@ public class DeskActivity extends AppCompatActivity {
         }
 
         //개같은 싱크
-        lectureRooms[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                order = true;
-                if (lectureRoomNumber == -1) ;
-                else {
-                    lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(150, 150, 150));
-                    lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(0, 0, 0));
-                }
-                lectureRoomNumber = 0;
-                lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(35, 35, 35));
-                lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(255, 255, 255));
-            }
-        });
+        lectureRooms[0].
 
-        lectureRooms[1].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                order = false;
-                if (lectureRoomNumber == -1) ;
-                else {
-                    lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(150, 150, 150));
-                    lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(0, 0, 0));
-                }
-                lectureRoomNumber = 1;
-                lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(35, 35, 35));
-                lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(255, 255, 255));
-            }
-        });
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        order = true;
+                        if (lectureRoomNumber == -1) ;
+                        else {
+                            lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(150, 150, 150));
+                            lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(0, 0, 0));
+                        }
+                        lectureRoomNumber = 0;
+                        lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(35, 35, 35));
+                        lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(255, 255, 255));
+                    }
+                });
 
-        lectureRooms[2].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                order = false;
-                if (lectureRoomNumber == -1) ;
-                else {
-                    lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(150, 150, 150));
-                    lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(0, 0, 0));
-                }
-                lectureRoomNumber = 2;
-                lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(35, 35, 35));
-                lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(255, 255, 255));
-            }
-        });
+        lectureRooms[1].
+
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        order = false;
+                        if (lectureRoomNumber == -1) ;
+                        else {
+                            lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(150, 150, 150));
+                            lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(0, 0, 0));
+                        }
+                        lectureRoomNumber = 1;
+                        lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(35, 35, 35));
+                        lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(255, 255, 255));
+                    }
+                });
+
+        lectureRooms[2].
+
+                setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        order = false;
+                        if (lectureRoomNumber == -1) ;
+                        else {
+                            lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(150, 150, 150));
+                            lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(0, 0, 0));
+                        }
+                        lectureRoomNumber = 2;
+                        lectureRooms[lectureRoomNumber].setBackgroundColor(Color.rgb(35, 35, 35));
+                        lectureRooms[lectureRoomNumber].setTextColor(Color.rgb(255, 255, 255));
+                    }
+                });
 
         //강의실 선택 버튼 레이아웃 추가
         LL1.addView(lectureRoom);
