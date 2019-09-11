@@ -51,7 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     TextView showResult;
     EditText ID, PN;
-    Button next, TXT, Test, Reset, Execute, Change, Major, Cp, Ce;
+    Button next, TXT, Test, Reset, Execute, Change, Major, Cp, Seminar;
     LinearLayout select;
 
     JsoupAsyncTask JT;
@@ -83,15 +83,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     "leehy321", "o0o0o557", "apple2701", "isf1999", "eunseo5355",
                     "choijudy0405", "jhhgms"
             },
+
+            // 0911 - #1 _ 대학생활세미나 ID LIST 변경. - 2학기 통합반
+//            {
+//                    "0928bh", "phw0204", "yelin", "vamos", "ujin00"
+//                    , "-", "didekwls0104", "ruddl0519", "cindy1078", "201914008"
+//                    , "sss4920", "tjdeoduf1228", "yeachan0724", "ymreueo", "ksk78030"
+//                    , "minjiii00", "-", "-", "-", "201914018"
+//                    , "nahyunho1030", "kll4400", "ekdms3868", "gjwldud0719", "pyr981125"
+//                    , "gpwl0773", "201914081", "wndud5750", "epselcks1", "nada2121"
+//                    , "bsm3737", "leehy321", "chorong557@naver.com", "o0o0o557", "apple2701"
+//                    , "isf1999", "eunseo5355", "choijudy0405", "jhhgms"
+//            }
             {
-                    "0928bh", "phw0204", "yelin", "vamos", "ujin00"
-                    , "-", "didekwls0104", "ruddl0519", "cindy1078", "201914008"
-                    , "sss4920", "tjdeoduf1228", "yeachan0724", "ymreueo", "ksk78030"
-                    , "minjiii00", "-", "-", "-", "201914018"
-                    , "nahyunho1030", "kll4400", "ekdms3868", "gjwldud0719", "pyr981125"
-                    , "gpwl0773", "201914081", "wndud5750", "epselcks1", "nada2121"
-                    , "bsm3737", "leehy321", "chorong557@naver.com", "o0o0o557", "apple2701"
-                    , "isf1999", "eunseo5355", "choijudy0405", "jhhgms"
+                    "wodnjs429", "yelin","ujin00", "ruddl0519", "cindy1078",
+                    "201914008", "sss4920", "tjdeoduf1228", "yeachan0724", "",
+                    "ksk78030", "minjiii00", "chelry0", "201914018", "nahyunho1030",
+                    "kll4400", "ekdms3868", "gpwl0773", "0928bh", "201914081",
+                    "wndud5570", "eselcks1", "bsm3737", " leehy321", "o0o0o557",
+                    "isf1999", "eunseo5355"
             }
     };
     static int isCase = 0;
@@ -99,8 +109,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private String score1 = "https://www.acmicpc.net/status?problem_id=";
     private String score2 = "&language_id=-1&result_id=-1";
     private String target = "";
-    protected static String DeadLine="201903181825";
-    protected static String DateResult="";
+    protected static String DeadLine = "201903181825";
+    protected static String DateResult = "";
     private static String score = "";
 
     // #6 _ 레이아웃1: 사이드바 레이아웃 구현. --기능 구현
@@ -253,8 +263,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 select.setVisibility(View.INVISIBLE);
             }
         });
-        Ce = findViewById(R.id.Ce);
-        Ce.setOnClickListener(new View.OnClickListener() {
+        Seminar = findViewById(R.id.Seminar);
+        Seminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isCase = 2;
@@ -435,7 +445,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 System.out.println(target);
                 for (Element e : titles) {
                     if (e.text().equals("맞았습니다!!")) {                   //정오 판별
-                        r = "1\n";
+                        r = "2\n";
                         break;
                     }
                     //System.out.println(target);
@@ -448,18 +458,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     System.out.println(e.text("data-original-title"));          //비교용 포맷
                     // 정규식 공부 필요
                     Pattern pattern = Pattern.compile("[*0-9\"]");              //정규식 포맷
-                    String date="";                                             //제출일자 저장용
+                    String date = "";                                             //제출일자 저장용
                     Matcher matcher = pattern.matcher(e.text("data-original-title").toString());
                     while (matcher.find()) {
                         System.out.print(matcher.group());
-                        date+=matcher.group();                                  //제출일자 빌드
+                        date += matcher.group();                                  //제출일자 빌드
                     }
                     System.out.println();
-                    if(isDate(date)){                                           //기한 판별
-                        DateResult+="1\n";
-                    }
-                    else {
-                        DateResult+="0\n";
+                    if (isDate(date)) {                                           //기한 판별
+                        DateResult += "1\n";
+                    } else {
+                        DateResult += "0\n";
                     }
                     return null;
                     //System.out.println(target);
@@ -492,10 +501,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             return null;
         }
 
-        protected  boolean isDate(String t) {
-            return DeadLine.compareTo(t)>=0;
+        protected boolean isDate(String t) {
+            return DeadLine.compareTo(t) >= 0;
 
         }
+
         @Override
         protected void onPostExecute(String result) {
             System.out.println(r);

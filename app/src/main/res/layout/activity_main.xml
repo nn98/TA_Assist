@@ -71,14 +71,14 @@
             android:id="@+id/Cp"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:text="CP"
+            android:text="C"
             android:textSize="5pt" />
 
         <Button
-            android:id="@+id/Ce"
+            android:id="@+id/Seminar"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:text="CE"
+            android:text="SEMINAR"
             android:textSize="5pt" />
     </LinearLayout>
 
