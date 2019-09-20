@@ -427,6 +427,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             super.onPreExecute();
         }
 
+        // - 0920 !!! update - 시간 체크 구현 마무리 시도. 정규식 공부 안함. 병신.
         @Override
         protected String doInBackground(String... params) {
             try {
@@ -435,17 +436,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 mAsyncTaskExecute = true;
                 Document doc = Jsoup.connect(this.target).get();
-
+                boolean c=false;
                 //HTML 크롤링 확인-성공.
                 //System.out.println(doc.html());
 
                 //필요한 항목: 테이블 내부 문제 번호, 해결 여부, 날짜
                 Elements titles = doc.select("td[class=result]");   //제출 여부 확인
                 System.out.println("-------------------------------------------------------------");
-                System.out.println(target);
+//                System.out.println(target);
                 for (Element e : titles) {
                     if (e.text().equals("맞았습니다!!")) {                   //정오 판별
                         r = "2\n";
+                        c=true;
                         break;
                     }
                     //System.out.println(target);
@@ -454,18 +456,28 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 // #1 _ 백준 채점4: 시간 체크 추가 real-time-update , data-original-title
                 titles = doc.select("a[class=real-time-update]");   //제출일자 확인
                 for (Element e : titles) {
-                    System.out.println(e.text());
-                    System.out.println(e.text("data-original-title"));          //비교용 포맷
-                    // 정규식 공부 필요
-                    Pattern pattern = Pattern.compile("[*0-9\"]");              //정규식 포맷
-                    String date = "";                                             //제출일자 저장용
-                    Matcher matcher = pattern.matcher(e.text("data-original-title").toString());
+//                    System.out.println(e.text());   //상대시간
+//                    System.out.println(e.text("data-original-title"));          //절대시간
+                    boolean cut=false;
+                    String match=e.text("data-original-title").toString();      //제출시간(절대) 추출
+                    System.out.println(match);  //확인
+                    // 년 버리고 월 일 시 분 추출
+//                    String[] t=match.split("초"),date=new String[4];
+//                    date[3]=t[0].substring(t[0].length()-2).trim();
+                    Pattern pattern = Pattern.compile("[*0-9]");              //정규식 포맷
+                    StringBuilder date = new StringBuilder();                   //제출일자 저장용
+                    Matcher matcher = pattern.matcher(match);
                     while (matcher.find()) {
                         System.out.print(matcher.group());
-                        date += matcher.group();                                  //제출일자 빌드
+                        date.append(matcher.group());                                  //제출일자 빌드
+//                        if(matcher.group().equals("\"")) if(cut) break;
+//                        else cut=true;
                     }
+                    date.delete(date.length()-10,date.length());                //제출시간(절대) 비교양식
+                    //어메이징 백준사이트 09월이 아니라 9월
                     System.out.println();
-                    if (isDate(date)) {                                           //기한 판별
+                    System.out.println(date);
+                    if (isDate(date.toString())) {                                           //기한 판별
                         DateResult += "1\n";
                     } else {
                         DateResult += "0\n";
