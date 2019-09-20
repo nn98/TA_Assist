@@ -44,13 +44,14 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
     TextView showResult;
-    EditText ID, PN;
+    EditText ID, PN, DL;
     Button next, TXT, Test, Reset, Execute, Change, Major, Cp, Seminar;
     LinearLayout select;
 
@@ -100,14 +101,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     "201914008", "sss4920", "tjdeoduf1228", "yeachan0724", "",
                     "ksk78030", "minjiii00", "chelry0", "201914018", "nahyunho1030",
                     "kll4400", "ekdms3868", "gpwl0773", "0928bh", "201914081",
-                    "wndud5570", "eselcks1", "bsm3737", " leehy321", "o0o0o557",
+                    "wndud5570", "eselcks1", "bsm3737", "leehy321", "o0o0o557",
                     "isf1999", "eunseo5355"
             }
     };
-    static int isCase = 0;
+    static int isCase = 2;
     // 2: 백준 채점현황 기본 주소
     private String score1 = "https://www.acmicpc.net/status?problem_id=";
-    private String score2 = "&language_id=-1&result_id=-1";
+
+    /**0920 이런 병신 걍 맞았습니다만 찾으면되는뎈ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 개똘빡새낔ㅋㅋㅋㅋ**/
+    private String score2 = "&language_id=-1&result_id=4";
     private String target = "";
     protected static String DeadLine = "201903181825";
     protected static String DateResult = "";
@@ -121,6 +124,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ViewGroup sideLayout;          //사이드바만 감싸는 영역
     private Boolean isMenuShow = false;    //사이드바 표시 상태
     private Boolean isExitFlag = false;    //뒤로 버튼 입력 상태
+
+    /**0920 update**/
+    private String deadLine[],checkResult="";
+    private boolean c=false;
+    Button check;
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -239,12 +247,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
         // #1 _ 4
         select = findViewById(R.id.select);
         PN = findViewById(R.id.PN);         //EditText PN set
+
+        /********************0920********************/
+        check=findViewById(R.id.rCheck);
+
         Change = findViewById(R.id.change);
         Change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // #1 _ 4: 케이스 변경용 리스너
-                select.setVisibility(View.VISIBLE);
+                if(c) {
+                    select.setVisibility(View.INVISIBLE);
+                    check.setVisibility(View.VISIBLE);
+                    c=false;
+                } else {
+                    select.setVisibility(View.VISIBLE);
+                    check.setVisibility(View.INVISIBLE);
+                    c=true;
+                }
             }
         });
         Major = findViewById(R.id.Major);
@@ -253,6 +273,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v) {
                 isCase = 0;
                 select.setVisibility(View.INVISIBLE);
+                check.setVisibility(View.VISIBLE);
+                c=false;
             }
         });
         Cp = findViewById(R.id.Cp);
@@ -261,6 +283,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v) {
                 isCase = 1;
                 select.setVisibility(View.INVISIBLE);
+                check.setVisibility(View.VISIBLE);
+                c=false;
             }
         });
         Seminar = findViewById(R.id.Seminar);
@@ -269,6 +293,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v) {
                 isCase = 2;
                 select.setVisibility(View.INVISIBLE);
+                check.setVisibility(View.VISIBLE);
+                c=false;
             }
         });
 
@@ -331,7 +357,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 //ProgressBar set, Toast massage popup.
                 ongoing.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, "Execute running", Toast.LENGTH_SHORT).show();
-
+                deadLine=DL.getText().toString().split(" ");
                 for (int i = 0; i < (ID_LIST[isCase].length); i++) {
                     try {
                         next.performClick();
@@ -347,6 +373,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         });
         // 0521-기본 백준 채점 알고리즘 구현 완료. --TODO 날짜 비교
         // --TXT, TEXT invisible.
+
+        /********************0920********************/
+        DL=findViewById(R.id.DL);
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("checkResult", checkResult);
+            }
+        });
     }
 
     public void mOnPopupClick1(View v) {
@@ -436,7 +471,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 mAsyncTaskExecute = true;
                 Document doc = Jsoup.connect(this.target).get();
-                boolean c=false;
+
+                /**0920**/
+                //문제 해결 판별, 제출 기한 판별
+                boolean problem=false,inTime=false;
+                //추가 제출 대비 - 가장 오래된 맞았습니다!! 탐색용 변수
+                int counter=0,pNumber=0,dNumber=0;
+
                 //HTML 크롤링 확인-성공.
                 //System.out.println(doc.html());
 
@@ -446,43 +487,80 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //                System.out.println(target);
                 for (Element e : titles) {
                     if (e.text().equals("맞았습니다!!")) {                   //정오 판별
-                        r = "2\n";
-                        c=true;
-                        break;
+//                        r = "2\n";
+                        problem=true;
+                        pNumber=counter;
                     }
+                    counter++;
                     //System.out.println(target);
                     //System.out.println("title: " + e.text());
                 }
                 // #1 _ 백준 채점4: 시간 체크 추가 real-time-update , data-original-title
                 titles = doc.select("a[class=real-time-update]");   //제출일자 확인
                 for (Element e : titles) {
+                    if(dNumber<pNumber) {
+                        dNumber++;
+                        continue;
+                    }
 //                    System.out.println(e.text());   //상대시간
 //                    System.out.println(e.text("data-original-title"));          //절대시간
-                    boolean cut=false;
                     String match=e.text("data-original-title").toString();      //제출시간(절대) 추출
-                    System.out.println(match);  //확인
+//                    System.out.println(match);  //확인
                     // 년 버리고 월 일 시 분 추출
-//                    String[] t=match.split("초"),date=new String[4];
-//                    date[3]=t[0].substring(t[0].length()-2).trim();
-                    Pattern pattern = Pattern.compile("[*0-9]");              //정규식 포맷
-                    StringBuilder date = new StringBuilder();                   //제출일자 저장용
-                    Matcher matcher = pattern.matcher(match);
-                    while (matcher.find()) {
-                        System.out.print(matcher.group());
-                        date.append(matcher.group());                                  //제출일자 빌드
+                    String[] t=match.split("분"),date=new String[4];
+                    date[3]=t[0].substring(t[0].length()-2).trim();
+                    t=t[0].split("시");
+                    date[2]=t[0].substring(t[0].length()-2).trim();
+                    t=t[0].split("일");
+                    date[1]=t[0].substring(t[0].length()-2).trim();
+                    t=t[0].split("월");
+                    date[0]=t[0].substring(t[0].length()-2).trim();
+                    // 제출시간
+//                    System.out.println("Submit\t: "+Arrays.toString(date));
+                    // 제출기한
+//                    System.out.println("DeadLine\t: "+Arrays.toString(deadLine));
+
+                    //0920 11:10 제줄기한 추출 성공. 비교 후 정오 판별
+
+                    for(int i=0;i<4;i++) {
+//                        System.out.println(date[i]+" "+deadLine[i]+" "+deadLine[i].compareTo(date[i]));
+//                        if(deadLine[i].compareTo(date[i])>0) {
+//                            inTime=false;
+//                            break;
+//                        }
+                        int s=Integer.parseInt(date[i]),d=Integer.parseInt(deadLine[i]);
+                        if(s<d) {
+//                            System.out.println(s+" "+d);
+                            inTime=true;
+                            break;
+                        }
+                    }
+                    checkResult+=problem+" "+inTime+"\n";
+                    if(problem&&inTime) r="2\n";
+                    else if(problem&&!inTime) r="1\n";
+                    else r="0\n";
+//                    System.out.println(target+"\n"+dNumber+" "+pNumber);
+
+                    /*************************0920 제출기한 판별기능 구현 완료*************************/
+                    return null;
+//                    Pattern pattern = Pattern.compile("[*0-9]");              //정규식 포맷
+//                    StringBuilder date = new StringBuilder();                   //제출일자 저장용
+//                    Matcher matcher = pattern.matcher(match);
+//                    while (matcher.find()) {
+//                        System.out.print(matcher.group());
+//                        date.append(matcher.group());                                  //제출일자 빌드
 //                        if(matcher.group().equals("\"")) if(cut) break;
 //                        else cut=true;
-                    }
-                    date.delete(date.length()-10,date.length());                //제출시간(절대) 비교양식
+//                    }
+//                    date.delete(date.length()-10,date.length());                //제출시간(절대) 비교양식
                     //어메이징 백준사이트 09월이 아니라 9월
-                    System.out.println();
-                    System.out.println(date);
-                    if (isDate(date.toString())) {                                           //기한 판별
-                        DateResult += "1\n";
-                    } else {
-                        DateResult += "0\n";
-                    }
-                    return null;
+//                    System.out.println();
+//                    System.out.println(date);
+//                    if (isDate(date.toString())) {                                           //기한 판별
+//                        DateResult += "1\n";
+//                    } else {
+//                        DateResult += "0\n";
+//                    }
                     //System.out.println(target);
                     //System.out.println("title: " + e.text());
                 }
@@ -515,7 +593,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         protected boolean isDate(String t) {
             return DeadLine.compareTo(t) >= 0;
-
         }
 
         @Override
