@@ -97,14 +97,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //                    , "isf1999", "eunseo5355", "choijudy0405", "jhhgms"
 //            }
             {
-                    "wodnjs429", "yelin","ujin00", "ruddl0519", "cindy1078",
-                    "201914008", "sss4920", "tjdeoduf1228", "yeachan0724", "",
-                    "ksk78030", "minjiii00", "chelry0", "201914018", "nahyunho1030",
-                    "kll4400", "ekdms3868", "gpwl0773", "0928bh", "201914081",
-                    "wndud5570", "eselcks1", "bsm3737", "leehy321", "o0o0o557",
-                    "isf1999", "eunseo5355"
+                    "wodnjs429", "yelin", "ujin00", "ruddl0519", "cindy1078",
+                    "201914008", "201914008", "sss4920", "tjdeoduf1228", "yeachan0724",
+                    "ymreueo", "ksk78030", "minjiii00", "chelry0", "201914018",
+                    "nahyunho1030", "kll4400", "ekdms3868", "gjwldud0719", "gpwl0773",
+                    "0928bh", "201914081", "wndud5570", "eselcks1", "bsm3737",
+                    " leehy321", "o0o0o557", "isf1999", "eunseo5355", "choijudy0405"
             }
     };
+    //0 전탐세 1 C프 2 대생세
+    //--- 0 전탐세(No Use) 1 python 2 대생세
     static int isCase = 2;
     // 2: 백준 채점현황 기본 주소
     private String score1 = "https://www.acmicpc.net/status?problem_id=";
