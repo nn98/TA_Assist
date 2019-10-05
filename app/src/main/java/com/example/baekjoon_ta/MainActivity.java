@@ -98,7 +98,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //            }
             {
                     "wodnjs429", "yelin", "ujin00", "ruddl0519", "cindy1078",
-                    "201914008", "201914008", "sss4920", "tjdeoduf1228", "yeachan0724",
+                    "201914008", "sss4920", "tjdeoduf1228", "yeachan0724",
                     "ymreueo", "ksk78030", "minjiii00", "chelry0", "201914018",
                     "nahyunho1030", "kll4400", "ekdms3868", "gjwldud0719", "gpwl0773",
                     "0928bh", "201914081", "wndud5570", "eselcks1", "bsm3737",
@@ -131,6 +131,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private String deadLine[],checkResult="";
     private boolean c=false;
     Button check;
+
+    /**1006 update**/
+//    private String addLine[]; useless
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -360,6 +363,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 ongoing.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, "Execute running", Toast.LENGTH_SHORT).show();
                 deadLine=DL.getText().toString().split(" ");
+//                addLine=Arrays.copyOf(deadLine,deadLine.length);
+//                addLine[1]+=2;
                 for (int i = 0; i < (ID_LIST[isCase].length); i++) {
                     try {
                         next.performClick();
@@ -476,7 +481,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 /**0920**/
                 //문제 해결 판별, 제출 기한 판별
-                boolean problem=false,inTime=false;
+                boolean problem=false,inTime=false,adTime=false;
                 //추가 제출 대비 - 가장 오래된 맞았습니다!! 탐색용 변수
                 int counter=0,pNumber=0,dNumber=0;
 
@@ -517,6 +522,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     date[1]=t[0].substring(t[0].length()-2).trim();
                     t=t[0].split("월");
                     date[0]=t[0].substring(t[0].length()-2).trim();
+//                    System.out.println(Arrays.toString(date));
                     // 제출시간
 //                    System.out.println("Submit\t: "+Arrays.toString(date));
                     // 제출기한
@@ -534,17 +540,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         if(s<d) {
 //                            System.out.println(s+" "+d);
                             inTime=true;
+                            adTime=true;
                             break;
                         }
                     }
-                    checkResult+=problem+" "+inTime+"\n";
-                    if(problem&&inTime) r="2\n";
-                    else if(problem&&!inTime) r="1\n";
-                    else r="0\n";
+                    if(!inTime) {
+//                        System.out.println(Arrays.toString(addLine));
+                        for (int i = 0; i < 4; i++) {
+//                        System.out.println(date[i]+" "+deadLine[i]+" "+deadLine[i].compareTo(date[i]));
+//                        if(deadLine[i].compareTo(date[i])>0) {
+//                            inTime=false;
+//                            break;
+//                        }
+                            int s = Integer.parseInt(date[i]), d = Integer.parseInt(deadLine[i]);
+                            if(i==1)d+=2;
+                            if (s < d) {
+//                            System.out.println(s+" "+d);
+                                adTime = true;
+                                break;
+                            }
+                        }
+                    }
 //                    System.out.println(target+"\n"+dNumber+" "+pNumber);
 
                     /*************************0920 제출기한 판별기능 구현 완료*************************/
-                    return null;
+//                    return null;
 //                    Pattern pattern = Pattern.compile("[*0-9]");              //정규식 포맷
 //                    StringBuilder date = new StringBuilder();                   //제출일자 저장용
 //                    Matcher matcher = pattern.matcher(match);
@@ -566,6 +586,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //System.out.println(target);
                     //System.out.println("title: " + e.text());
                 }
+                checkResult+=problem+" "+inTime+" "+adTime+"\n";
+                if(!adTime) r="0\n";
+                else if(problem&&inTime) r="2\n";
+                else if(problem) r="1\n";
                 // 0604 - 제출 날짜 크롤링 성공, """""""2019429142929""1556515769""""" 형식. 스플릿과 제출기한 비교 구현 필요
                 /*
                     //테스트2
