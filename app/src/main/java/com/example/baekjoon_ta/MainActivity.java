@@ -74,18 +74,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     "7608guswns", "shc3113", "jiwoo60", "shmoon12", "201814128",
                     "dlaxodud1217", "201814135", "s9430939", "980lje"
             },
+
+            // 1103 - #1 _ C프로그래밍 ID LIST 변경 - 2학기 Python
+//            {
+//                    "yelin", "vamos", "ujin00", "-", "didekwls0104",
+//                    "ruddl0519", "-", "201914008", "sss4920", "tjdeoduf1228",
+//                    "yeachan0724", "ymreueo", "ksk78030", "minjiii00", "Chelry0",
+//                    "-", "-", "201914018", "nahyunho1030", "kll4400",
+//                    "ekdms3868", "gjwldud0719", "pyr981125", "gpwl0773", "0928bh",
+//                    "201914081", "wndud5750", "epselcks1", "nada2121", "bsm3737",
+//                    "leehy321", "o0o0o557", "apple2701", "isf1999", "eunseo5355",
+//                    "choijudy0405", "jhhgms"
+//            },
             {
-                    "yelin", "vamos", "ujin00", "-", "didekwls0104",
-                    "ruddl0519", "-", "201914008", "sss4920", "tjdeoduf1228",
-                    "yeachan0724", "ymreueo", "ksk78030", "minjiii00", "Chelry0",
-                    "-", "-", "201914018", "nahyunho1030", "kll4400",
-                    "ekdms3868", "gjwldud0719", "pyr981125", "gpwl0773", "0928bh",
-                    "201914081", "wndud5750", "epselcks1", "nada2121", "bsm3737",
-                    "leehy321", "o0o0o557", "apple2701", "isf1999", "eunseo5355",
-                    "choijudy0405", "jhhgms"
+                    "youthearp", "h012486", "gusalsdl5119", "eleste324", "201634015",
+                    "qpp9946", "yelin", "ruddl0519", "sss4920", "tjdeoduf1228",
+                    "ymreueo", "minjiii00", "chelry0", "201914018", "rlayjean",
+                    "wjdalstn0622", "nomaltree", "serah29", "chomom015", "gmltjs418",
+                    "fr35wo", "rhrlqnf", "cion6339", "nahyunho1030", "kll4400",
+                    "ekdms3868", "gpwl0773", "eunseo5355", "john2318", "gaeun0800",
+                    "evol1531", "minjiii00", "yoou9028", "euirim", "cbj4069",
+                    "mbs324", "lsh32832,8", "gkrry2597", "kdc9050", "fatal0311",
+                    "88yhtserof", "spdhtm21",
             },
 
-            // 0911 - #1 _ 대학생활세미나 ID LIST 변경. - 2학기 통합반
+            // 0911 - #1 _ 대학생활세미나 ID LIST 변경 - 2학기 통합반
 //            {
 //                    "0928bh", "phw0204", "yelin", "vamos", "ujin00"
 //                    , "-", "didekwls0104", "ruddl0519", "cindy1078", "201914008"
@@ -522,7 +535,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     date[1]=t[0].substring(t[0].length()-2).trim();
                     t=t[0].split("월");
                     date[0]=t[0].substring(t[0].length()-2).trim();
-//                    System.out.println(Arrays.toString(date));
+                    System.out.println(Arrays.toString(date));
                     // 제출시간
 //                    System.out.println("Submit\t: "+Arrays.toString(date));
                     // 제출기한
@@ -631,6 +644,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             sCount++;
             //ProgressBar set, Toast massage popup.
             if (sCount == (ID_LIST[isCase].length)) {
+                sCount=0;
                 ongoing.setVisibility(View.INVISIBLE);
                 Toast.makeText(MainActivity.this, "Execute finish", Toast.LENGTH_SHORT).show();
             }
