@@ -73,7 +73,7 @@
             android:id="@+id/Cp"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:text="C"
+            android:text="PYTHON"
             android:textSize="5pt" />
 
         <Button
@@ -140,6 +140,18 @@
         android:textSize="5pt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textColorHint="#aaa"
+        app:layout_constraintBottom_toTopOf="@id/DL"
+        app:layout_constraintLeft_toRightOf="@id/rCheck"
+        app:layout_constraintRight_toLeftOf="@id/Reset"
+        android:hint="AddLine"
+        android:id="@+id/AL"/>
 
     <EditText
         android:id="@+id/DL"

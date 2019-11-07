@@ -51,7 +51,7 @@ import java.util.regex.Pattern;
 public class MainActivity extends Activity implements View.OnClickListener {
 
     TextView showResult;
-    EditText ID, PN, DL;
+    EditText ID, PN, DL, AL;
     Button next, TXT, Test, Reset, Execute, Change, Major, Cp, Seminar;
     LinearLayout select;
 
@@ -63,7 +63,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     // #1 _ 백준 채점1: 전탐세 백준 아이디 목록
     // #1 _ 백준 채점4: 아이디 목록 추가, 수정. 2차원배열로 변환, 행 번호 isCase 변수 선언.
-    static int idIndex = 0, sCount = 1;
+    //0 전탐세 1 C프 2 대생세
+    //--- 0 전탐세(No Use) 1 python 2 대생세
+    static int idIndex = 0, sCount = 1, isCase = 2, AddLine;
     public static final String[][] ID_LIST = {
             {
                     "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
@@ -118,9 +120,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     " leehy321", "o0o0o557", "isf1999", "eunseo5355", "choijudy0405"
             }
     };
-    //0 전탐세 1 C프 2 대생세
-    //--- 0 전탐세(No Use) 1 python 2 대생세
-    static int isCase = 2;
     // 2: 백준 채점현황 기본 주소
     private String score1 = "https://www.acmicpc.net/status?problem_id=";
 
@@ -371,6 +370,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Execute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // get adLine
+                AddLine=Integer.parseInt((AL=findViewById(R.id.AL)).getText().toString());
                 System.out.println("EXECUTE RUN");
                 //ProgressBar set, Toast massage popup.
                 ongoing.setVisibility(View.VISIBLE);
@@ -566,7 +567,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //                            break;
 //                        }
                             int s = Integer.parseInt(date[i]), d = Integer.parseInt(deadLine[i]);
-                            if(i==1)d+=2;
+                            if(i==1)d+=AddLine;
                             if (s < d) {
 //                            System.out.println(s+" "+d);
                                 adTime = true;
