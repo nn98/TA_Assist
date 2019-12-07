@@ -67,14 +67,29 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //--- 0 전탐세(No Use) 1 python 2 대생세
     static int idIndex = 0, sCount = 1, isCase = 2, AddLine;
     public static final String[][] ID_LIST = {
+
+            /**1207 - #1 _ 전공탐색세미나 ID_LIST 변경 - 2학기 C프로그래밍**/
+//            {
+//                    "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
+//                    "asfg15", "ironhak1106", "201814034", "bmb1416", "gustn8523",
+//                    "gkdus023", "a3920679", "kuntek1953", "hjk0385", "cjs1399",
+//                    "doseon1226", "jiyeongstar", "leemoon63", "qwe916", "ggs4029",
+//                    "06zzkimzz06", "kj980926", "twoddal2", "hj980608", "zoeyourlife",
+//                    "7608guswns", "shc3113", "jiwoo60", "shmoon12", "201814128",
+//                    "dlaxodud1217", "201814135", "s9430939", "980lje"
+//            },
             {
-                    "es2qorgus", "sumin00j", "201811006", "yjs06070", "rabonim",
-                    "asfg15", "ironhak1106", "201814034", "bmb1416", "gustn8523",
-                    "gkdus023", "a3920679", "kuntek1953", "hjk0385", "cjs1399",
-                    "doseon1226", "jiyeongstar", "leemoon63", "qwe916", "ggs4029",
-                    "06zzkimzz06", "kj980926", "twoddal2", "hj980608", "zoeyourlife",
-                    "7608guswns", "shc3113", "jiwoo60", "shmoon12", "201814128",
-                    "dlaxodud1217", "201814135", "s9430939", "980lje"
+                    "ejy6802", "yunie2004", "hxxn1995", "khk7759", "201622027",
+                    "znsjdhk", "jhye225", "sesil2001", "lhj6399", "wodnjs429",
+                    "um0711", "asbb1004", "ikhoi22", "hjchae11", "201812153",
+                    "201813043", "chlals9930", "woh21", "201911019", "201911025",
+                    //25번 김정인 X
+                    "ahndaesung77", "yehyun5466", "manta", "julia1149", "szdf564zsdf89sdf489zsdf48sd89",
+                    "kmskms5388", "201912161", "xenu98", "bym9446", "yunsik29",
+                    //32번 이건엽 X
+                    "tjgus0210", "szdf564zsdf89sdf489zsdf48sd89", "whyp1028", "201913028", "gjeka4554",
+                    "kahm28", "nay06", "dayun0802", "kimys001111", "siwon806",
+                    "wavemouse", "hanju10250"
             },
 
             // 1103 - #1 _ C프로그래밍 ID LIST 변경 - 2학기 Python
@@ -117,7 +132,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     "ymreueo", "ksk78030", "minjiii00", "chelry0", "201914018",
                     "nahyunho1030", "kll4400", "ekdms3868", "gjwldud0719", "gpwl0773",
                     "0928bh", "201914081", "wndud5570", "eselcks1", "bsm3737",
-                    " leehy321", "o0o0o557", "isf1999", "eunseo5355", "choijudy0405"
+                    "leehy321", "o0o0o557", "isf1999", "eunseo5355", "choijudy0405"
             }
     };
     // 2: 백준 채점현황 기본 주소
