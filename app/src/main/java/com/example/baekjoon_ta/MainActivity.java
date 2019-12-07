@@ -129,6 +129,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected static String DeadLine = "201903181825";
     protected static String DateResult = "";
     private static String score = "";
+    /**1126 틀린거까지도 확인**/
+    static String submition="";
+    private Button wrong;
 
     // #6 _ 레이아웃1: 사이드바 레이아웃 구현. --기능 구현
     private String TAG = "MainActivity";
@@ -248,6 +251,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         init();
         addSideView();              // #6 _ 온클릭 적용, 사이드바 생성 - 사이드바 실행 전제조건
+
+        /**1126**/
+        wrong=findViewById(R.id.wrong);
+        wrong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("wrong people",submition);
+            }
+        });
 
         // #1 _ 백준 채점1: 이후 구현 변화에 따라 개별 액티비티로 분리.
         ID = findViewById(R.id.ID);         //EditText ID set
@@ -379,6 +391,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 deadLine=DL.getText().toString().split(" ");
 //                addLine=Arrays.copyOf(deadLine,deadLine.length);
 //                addLine[1]+=2;
+                /**1126**/
+                submition="";
                 for (int i = 0; i < (ID_LIST[isCase].length); i++) {
                     try {
                         next.performClick();
@@ -403,6 +417,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Log.i("checkResult", checkResult);
             }
         });
+
     }
 
     public void mOnPopupClick1(View v) {
@@ -495,7 +510,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 /**0920**/
                 //문제 해결 판별, 제출 기한 판별
-                boolean problem=false,inTime=false,adTime=false;
+                boolean problem=false,inTime=false,adTime=false,isSubmit=false;
                 //추가 제출 대비 - 가장 오래된 맞았습니다!! 탐색용 변수
                 int counter=0,pNumber=0,dNumber=0;
 
@@ -511,6 +526,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //                        r = "2\n";
                         problem=true;
                         pNumber=counter;
+                        isSubmit=true;
                     }
                     counter++;
                     //System.out.println(target);
@@ -604,6 +620,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if(!adTime) r="0\n";
                 else if(problem&&inTime) r="2\n";
                 else if(problem) r="1\n";
+
+                /**1126**/
+                if(!isSubmit){
+                    String[]sp=target.split("&user_id=");
+                    sp=sp[1].split("&");
+                    submition+=sp[0]+"\n";
+                }
                 // 0604 - 제출 날짜 크롤링 성공, """""""2019429142929""1556515769""""" 형식. 스플릿과 제출기한 비교 구현 필요
                 /*
                     //테스트2
