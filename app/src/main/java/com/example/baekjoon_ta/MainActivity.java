@@ -103,16 +103,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //                    "leehy321", "o0o0o557", "apple2701", "isf1999", "eunseo5355",
 //                    "choijudy0405", "jhhgms"
 //            },
+
+//            2020-04-25 19_2학기 Python ID LIST 변경 - 20_1학기 대생세 1반 백준 채점
+//            {
+//                    "youthearp", "h012486", "gusalsdl5119", "eleste324", "201634015",
+//                    "qpp9946", "yelin", "ruddl0519", "sss4920", "tjdeoduf1228",
+//                    "ymreueo", "minjiii00", "chelry0", "201914018", "rlayjean",
+//                    "wjdalstn0622", "nomaltree", "serah29", "chomom015", "gmltjs418",
+//                    "fr35wo", "rhrlqnf", "cion6339", "nahyunho1030", "kll4400",
+//                    "ekdms3868", "gpwl0773", "eunseo5355", "john2318", "gaeun0800",
+//                    "evol1531", "minjiii00", "yoou9028", "euirim", "cbj4069",
+//                    "mbs324", "lsh32832,8", "gkrry2597", "kdc9050", "fatal0311",
+//                    "88yhtserof", "spdhtm21",
+//            },
+
             {
-                    "youthearp", "h012486", "gusalsdl5119", "eleste324", "201634015",
-                    "qpp9946", "yelin", "ruddl0519", "sss4920", "tjdeoduf1228",
-                    "ymreueo", "minjiii00", "chelry0", "201914018", "rlayjean",
-                    "wjdalstn0622", "nomaltree", "serah29", "chomom015", "gmltjs418",
-                    "fr35wo", "rhrlqnf", "cion6339", "nahyunho1030", "kll4400",
-                    "ekdms3868", "gpwl0773", "eunseo5355", "john2318", "gaeun0800",
-                    "evol1531", "minjiii00", "yoou9028", "euirim", "cbj4069",
-                    "mbs324", "lsh32832,8", "gkrry2597", "kdc9050", "fatal0311",
-                    "88yhtserof", "spdhtm21",
+                    "wodnjs429","dmsgur139","yj3180","partmant","chooh2000",
+                    "blueblue08","popanda","mini227","sejong0107","uuu0526",
+                    "tlsssm1212","angela2265","treaty0321","wh230819","hyk4238",
+                    "chk99445","br2030","baekjun1234","sooho3242"
             },
 
             // 0911 - #1 _ 대학생활세미나 ID LIST 변경 - 2학기 통합반
@@ -126,13 +135,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //                    , "bsm3737", "leehy321", "chorong557@naver.com", "o0o0o557", "apple2701"
 //                    , "isf1999", "eunseo5355", "choijudy0405", "jhhgms"
 //            }
+
+//            2020-04-25 19_2학기 Python ID LIST 변경 - 20_1학기 대생세 5반 백준 채점
+//            {
+//                    "wodnjs429", "yelin", "ujin00", "ruddl0519", "cindy1078",
+//                    "201914008", "sss4920", "tjdeoduf1228", "yeachan0724",
+//                    "ymreueo", "ksk78030", "minjiii00", "chelry0", "201914018",
+//                    "nahyunho1030", "kll4400", "ekdms3868", "gjwldud0719", "gpwl0773",
+//                    "0928bh", "201914081", "wndud5570", "eselcks1", "bsm3737",
+//                    "leehy321", "o0o0o557", "isf1999", "eunseo5355", "choijudy0405"
+//            }
             {
-                    "wodnjs429", "yelin", "ujin00", "ruddl0519", "cindy1078",
-                    "201914008", "sss4920", "tjdeoduf1228", "yeachan0724",
-                    "ymreueo", "ksk78030", "minjiii00", "chelry0", "201914018",
-                    "nahyunho1030", "kll4400", "ekdms3868", "gjwldud0719", "gpwl0773",
-                    "0928bh", "201914081", "wndud5570", "eselcks1", "bsm3737",
-                    "leehy321", "o0o0o557", "isf1999", "eunseo5355", "choijudy0405"
+                    "kshyun419","asas6614","kwj9294","skhu1024","rladnr128"
+                    ,"yebinac","idotu","neck392","qmffmzpdl","skl0519"
+                    ,"lsy1210","jwnamid","ssj2012sms","haeunkim0807","parkjh6275"
+                    ,"hpsd417","djwls0843","dlak0011","ssb1870"
+
             }
     };
     // 2: 백준 채점현황 기본 주소
@@ -567,6 +585,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     date[1]=t[0].substring(t[0].length()-2).trim();
                     t=t[0].split("월");
                     date[0]=t[0].substring(t[0].length()-2).trim();
+//                    System.out.println(Arrays.toString(date)+target);
                     System.out.println(Arrays.toString(date));
                     // 제출시간
 //                    System.out.println("Submit\t: "+Arrays.toString(date));

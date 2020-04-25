@@ -91,14 +91,14 @@
             android:id="@+id/Cp"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:text="PYTHON"
+            android:text="SEMINAR1"
             android:textSize="5pt" />
 
         <Button
             android:id="@+id/Seminar"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:text="SEMINAR"
+            android:text="SEMINAR5"
             android:textSize="5pt" />
     </LinearLayout>
 
