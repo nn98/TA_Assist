@@ -93,6 +93,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     "wavemouse", "hanju10250"
             },
 
+            /****/
+
             // 1103 - #1 _ C프로그래밍 ID LIST 변경 - 2학기 Python
 //            {
 //                    "yelin", "vamos", "ujin00", "-", "didekwls0104",
@@ -118,12 +120,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //                    "88yhtserof", "spdhtm21",
 //            },
 
+//            20-06-20 서순 수정
+//            {
+//                    "wodnjs429","dmsgur139","yj3180","partmant","chooh2000",
+//                    "blueblue08","popanda","mini227","sejong0107","uuu0526",
+//                    "tlsssm1212","angela2265","treaty0321","wh230819","hyk4238",
+//                    "chk99445","br2030","baekjun1234","sooho3242"
+//            },
+
             {
-                    "wodnjs429","dmsgur139","yj3180","partmant","chooh2000",
-                    "blueblue08","popanda","mini227","sejong0107","uuu0526",
-                    "tlsssm1212","angela2265","treaty0321","wh230819","hyk4238",
-                    "chk99445","br2030","baekjun1234","sooho3242"
+                    "neck392",
+                    "kshyun419",
+                    "asas6614",
+                    "djwls0843",
+                    "kwj9294",
+                    "rladnr128",
+                    "skhu1024",
+                    "haeunkim0807",
+                    "jwnamid",
+                    "hpsd417",
+                    "parkjh6275",
+                    "ssb1870",
+                    "ssj2012sms",
+                    "lsy1210",
+                    "skl0519",
+                    "qmffmzpdl",
+                    "idotu",
+                    "yebinac",
+                    "dlak0011"
             },
+
+            /****/
 
             // 0911 - #1 _ 대학생활세미나 ID LIST 변경 - 2학기 통합반
 //            {
@@ -146,13 +173,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //                    "0928bh", "201914081", "wndud5570", "eselcks1", "bsm3737",
 //                    "leehy321", "o0o0o557", "isf1999", "eunseo5355", "choijudy0405"
 //            }
-            {
-                    "kshyun419","asas6614","kwj9294","skhu1024","rladnr128"
-                    ,"yebinac","idotu","neck392","qmffmzpdl","skl0519"
-                    ,"lsy1210","jwnamid","ssj2012sms","haeunkim0807","parkjh6275"
-                    ,"hpsd417","djwls0843","dlak0011","ssb1870"
 
+            //            20-06-20 서순 수정
+//            {
+//                    "kshyun419","asas6614","kwj9294","skhu1024","rladnr128"
+//                    ,"yebinac","idotu","neck392","qmffmzpdl","skl0519"
+//                    ,"lsy1210","jwnamid","ssj2012sms","haeunkim0807","parkjh6275"
+//                    ,"hpsd417","djwls0843","dlak0011","ssb1870"
+//
+//            }
+
+            {
+                    "br2030",
+                    "mini227",
+                    "hyk4238",
+                    "blueblue08",
+                    "sejong0107",
+                    "baekjun1234",
+                    "dmsgur139",
+                    "tlsssm1212",
+                    "treaty0321",
+                    "wh230819",
+                    "popanda",
+                    "wodnjs429",
+                    "uuu0526",
+                    "sooho3242",
+                    "angela2265",
+                    "chooh2000",
+                    "yj3180",
+                    "chk99445",
+                    "partmant"
             }
+
     };
     // 2: 백준 채점현황 기본 주소
     private String score1 = "https://www.acmicpc.net/status?problem_id=";
