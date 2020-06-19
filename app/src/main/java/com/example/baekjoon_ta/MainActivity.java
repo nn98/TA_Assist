@@ -66,6 +66,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //0 전탐세 1 C프 2 대생세
     //--- 0 전탐세(No Use) 1 python 2 대생세
     static int idIndex = 0, sCount = 1, isCase = 2, AddLine;
+    public static final String[] TASK_LIST = {"MAJOR","SEMINAR1","SEMINAR5"};
     public static final String[][] ID_LIST = {
 
             /**1207 - #1 _ 전공탐색세미나 ID_LIST 변경 - 2학기 C프로그래밍**/
@@ -161,7 +162,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private String target = "";
     protected static String DeadLine = "201903181825";
     protected static String DateResult = "";
-    private static String score = "";
+    private static StringBuffer score = new StringBuffer();
     /**1126 틀린거까지도 확인**/
     static String submition="";
     private Button wrong;
@@ -391,7 +392,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v) {
                 //System.out.println("TEST RUN");
                 //score += JT.getR();               //결과값 get, score 에 문자열 형식으로 결합.
-                Log.i("result", score);  //score 결과값 출력. System.out 시 초과 문자열 압축 기능 실행
+                Log.i("result", score.toString());  //score 결과값 출력. System.out 시 초과 문자열 압축 기능 실행
                 // System.out.println("ResultSet:"+score);
                 showResult.setText(score);      //가시적으로 표기.
                 //next.performClick();            //자동으로 다음아이디. 기능구별 위해 next 잔여.
@@ -405,7 +406,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 idIndex = 0;
                 sCount = 0;
                 System.out.println("Reset");
-                score = "";                       //score 초기화.
+                score = new StringBuffer();                       //score 초기화.
             }
         });
         //#1 _ 백준 채점3: 기존 기능들 활용해 원클릭 채점기능 구현-0521
@@ -417,7 +418,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             public void onClick(View v) {
                 // get adLine
                 AddLine=Integer.parseInt((AL=findViewById(R.id.AL)).getText().toString());
-                System.out.println("EXECUTE RUN");
+                System.out.println("--------------------------------------------------EXECUTE RUN");
+                score.append("----------TASK : "+TASK_LIST[isCase]+" --- "+PN.getText()+"\n");
                 //ProgressBar set, Toast massage popup.
                 ongoing.setVisibility(View.VISIBLE);
                 Toast.makeText(MainActivity.this, "Execute running", Toast.LENGTH_SHORT).show();
@@ -518,7 +520,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     //데이터 크롤링을 위한 JsopAsyncTask 구현. 실질적 실행은 개별 클래스인 JsoupTask.
     private class JsoupAsyncTask extends AsyncTask<String, String, String> {
-        String r = "0\n", target;
+        String target;
+        StringBuffer r=new StringBuffer("0\n");
         private WaitNotify mWaitNotify = null;
 
         public JsoupAsyncTask(String target, WaitNotify aWaitNotify) {
@@ -651,9 +654,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //System.out.println("title: " + e.text());
                 }
                 checkResult+=problem+" "+inTime+" "+adTime+"\n";
-                if(!adTime) r="0\n";
-                else if(problem&&inTime) r="2\n";
-                else if(problem) r="1\n";
+                if(!adTime) r=new StringBuffer("0\n");
+                else if(problem&&inTime) r=new StringBuffer("2\n");
+                else if(problem) r=new StringBuffer("1\n");
 
                 /**1126**/
                 if(!isSubmit){
@@ -695,7 +698,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String result) {
             System.out.println(r);
-            score += r;
+            score.append(r);
             MainActivity.running = false;
             mWaitNotify.mNotify();
             mAsyncTaskExecute = false;
@@ -709,7 +712,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         public String getR() {
-            return r;
+            return r.toString();
         }
     }
 }
