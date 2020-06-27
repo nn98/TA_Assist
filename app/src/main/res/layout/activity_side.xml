@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#222">
+
+        <ImageButton
+            android:id="@+id/btn_cancel"
+            android:padding="4dp"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/closebtn00" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_alignParentBottom="true"
+            android:background="#202735" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:background="@drawable/fadeline2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="161dp">
+
+        <ImageView
+            android:background="@drawable/fadeline2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+        <ImageView
+            android:background="@drawable/bg00"
+            android:layout_width="match_parent"
+            android:layout_height="160dp" />
+        <ImageView
+            android:layout_marginTop="160dp"
+            android:background="@drawable/fadeline2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.7dp"
+            android:layout_alignParentBottom="true"
+            android:background="#202735" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--
+        <ImageView
+            android:background="@drawable/fadeline2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lecture Status"
+            android:background="#222266"
+            android:textColor="#fff"
+            android:textSize="30dp"/>
+        -->
+
+        <RelativeLayout
+            android:background="#222"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top">
+
+            <TextView
+                android:textColor="#fff"
+                android:background="@drawable/selectmenu"
+                android:id="@+id/Pamphlet"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="2dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="mOnPopupClick1"
+                android:text="Template"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_marginTop="30dp"
+                android:background="@drawable/fadeline2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:textColor="#fff"
+                android:background="@drawable/selectmenu"
+                android:id="@+id/Departure"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="31dp"
+                android:layout_marginLeft="2dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="mOnPopupClick2"
+                android:text="Departure"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_marginTop="61dp"
+                android:background="@drawable/fadeline2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:textColor="#fff"
+                android:background="@drawable/selectmenu"
+                android:id="@+id/Crawling"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="62dp"
+                android:layout_marginLeft="2dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="mOnPopupClick3"
+                android:text="Crawling"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_marginTop="92dp"
+                android:background="@drawable/fadeline2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:textColor="#fff"
+                android:background="@drawable/selectmenu"
+                android:id="@+id/Desk"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="93dp"
+                android:layout_marginLeft="2dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="mOnPopupClick4"
+                android:text="Desk"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_marginTop="123dp"
+                android:background="@drawable/fadeline2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:textColor="#fff"
+                android:background="@drawable/selectmenu"
+                android:id="@+id/Web"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="124dp"
+                android:layout_marginLeft="2dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="mOnPopupClick5"
+                android:text="WebView"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:layout_marginTop="154dp"
+                android:background="@drawable/fadeline2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <ImageButton
+                android:id="@+id/btn_side_level_1"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/closebtn00" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.7dp"
+                android:layout_alignParentBottom="true"
+                android:background="#202735" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>
