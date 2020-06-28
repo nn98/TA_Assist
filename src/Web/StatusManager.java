@@ -23,7 +23,7 @@ public class StatusManager {
 				n=s.nextInt()-1;
 				if(n<0)break;
 				for(i=0;i<StudentInfo.StudentNumber[n];i++)
-					Desktop.getDesktop().browse(new URI("https://www.acmicpc.net/status?problem_id=&user_id="+StudentInfo.ID_LIST[n][i]+"&language_id=-1&result_id=-1"));
+					Desktop.getDesktop().browse(new URI("https://www.acmicpc.net/status?problem_id=&user_id="+StudentInfo.ID_LIST[n][i]+"&language_id=-1&result_id=4"));
 			}
 		}
 		catch (IOException e) { 
