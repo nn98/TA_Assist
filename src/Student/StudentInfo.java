@@ -1,7 +1,7 @@
 package Student;
 
 public class StudentInfo {
-	public static String[]Class= {"C programming", "Seminar-1", "Seminar=5"},
+	public static String[]Class= {"C programming", "Seminar-1", "Seminar-5"},
 			ID_LIST[]= {
 					// CP
 					{},
