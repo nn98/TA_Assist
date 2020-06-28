@@ -1,5 +1,6 @@
 package Web;
 //https://mdago.tistory.com/2
+// good
 
 import java.awt.Desktop;
 import java.io.IOException;
