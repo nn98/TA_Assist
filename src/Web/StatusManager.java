@@ -16,7 +16,7 @@ public class StatusManager {
 		try { 
 			Scanner s=new Scanner(System.in);
 			int n,i,j=1;
-			while(j>0){
+			while(j>0) {
 				for(i=0;i<StudentInfo.ClassNumber;i++)
 					System.out.print(i+1+": "+StudentInfo.Class[i]+"  ");
 				System.out.print("\n0 to end: ");
